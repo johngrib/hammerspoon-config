@@ -92,13 +92,11 @@ do  -- winmove
 end
 
 do  -- clipboard history
-    -- local clipboard = require('modules.clipboard')
-    -- clipboard.setSize(10)
-    -- hs.hotkey.bind({'cmd', 'control'}, 'C', clipboard.showList)
-    -- hs.hotkey.bind({'cmd', 'option'}, 'C', clipboard.clear)
+    local clipboard = require('modules.clipboard')
+    clipboard.setSize(10)
+    f15_mode:bind({}, '`', clipboard.showList)
+    f15_mode:bind({'shift'}, '`', clipboard.clear)
 end
 
 hs.alert.show('loaded')
-
-
 

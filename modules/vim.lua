@@ -14,11 +14,12 @@ local mode = {
     triggered = false,
 }
 
-function vim_end()
-    mode.triggered = true
-end
 
 function obj:init(mode)
+
+    local function vim_end()
+        mode.triggered = true
+    end
 
     self.close = vim_end
 

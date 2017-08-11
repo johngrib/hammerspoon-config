@@ -38,6 +38,10 @@ do  -- f13 (tab move)
         left = { mod = {'control', 'shift'}, key = 'tab' },
         right = { mod = {'control'}, key = 'tab' }
     }
+    tabTable['터미널'] = {
+        left = { mod = {'control', 'shift'}, key = 'tab' },
+        right = { mod = {'control'}, key = 'tab' }
+    }
     tabTable['_else_'] = {
         left = { mod = {'control'}, key = 'pageup' },
         right = { mod = {'control'}, key = 'pagedown' }

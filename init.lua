@@ -63,7 +63,8 @@ do  -- app manager
     local app_man = require('modules.appman')
     local mode = f15_mode
 
-    mode:bind({}, 'c', app_man:toggle('Google Chrome'))
+    -- mode:bind({}, 'c', app_man:toggle('Google Chrome'))
+    mode:bind({}, 'c', function() hs.eventtap.keyStroke({'ctrl'}, '2') end)
     mode:bind({}, 'i', app_man:toggle('IntelliJ IDEA'))
     -- mode:bind({}, 't', app_man:toggle('iTerm'))
     mode:bind({}, 'l', app_man:toggle('Line'))

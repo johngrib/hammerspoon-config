@@ -8,15 +8,15 @@ require('modules.mouse'):init('f14')
 local f13_mode = hs.hotkey.modal.new()
 local f14_mode = hs.hotkey.modal.new()
 local f15_mode = hs.hotkey.modal.new()
-local f16_mode = hs.hotkey.modal.new()
+-- local f16_mode = hs.hotkey.modal.new()
 local vim_mode = require('modules.vim'):init(f13_mode)
 
 hs.hotkey.bind({}, 'f15', function() f15_mode:enter() end, function() f15_mode:exit() end)
-hs.hotkey.bind({}, 'f16', function() f16_mode:enter() end, function() f16_mode:exit() end)
+-- hs.hotkey.bind({}, 'f16', function() f16_mode:enter() end, function() f16_mode:exit() end)
 
 do  -- hints
-    f13_mode:bind({}, 'space', hs.hints.windowHints)
-    hs.hints.hintChars = {'u', 'i', 'o', 'p', 'h', 'j', 'k', 'l', 'm', ',', '.' }
+    hs.hotkey.bind({}, 'f16', hs.hints.windowHints)
+    hs.hints.hintChars = {'q', 'w', 'e', 'r', 'u', 'i', 'o', 'p', 'h', 'j', 'k', 'l', 'm', ',', '.' }
 end
 
 do  -- f13 (vimlike)

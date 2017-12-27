@@ -71,7 +71,8 @@ do  -- app manager
     mode:bind({}, 'v', app_man:toggle('MacVim'))
     mode:bind({}, 'n', app_man:toggle('Notes'))
     mode:bind({}, 's', app_man:toggle('Slack'))
-    mode:bind({}, 'f', app_man:toggle('Safari'))
+    mode:bind({}, 'f', app_man:toggle('Firefox'))
+    mode:bind({}, 'r', app_man:toggle('Reminders'))
 
     mode:bind({'shift'}, 'tab', app_man.focusPreviousScreen)
     mode:bind({}, 'tab', app_man.focusNextScreen)

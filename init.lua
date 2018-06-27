@@ -11,12 +11,12 @@ local f15_mode = hs.hotkey.modal.new()
 -- local f16_mode = hs.hotkey.modal.new()
 local vim_mode = require('modules.vim'):init(f13_mode)
 
-hs.hotkey.bind({}, 'f15', function() f15_mode:enter() end, function() f15_mode:exit() end)
+hs.hotkey.bind({}, 'f16', function() f15_mode:enter() end, function() f15_mode:exit() end)
 -- hs.hotkey.bind({}, 'f16', function() f16_mode:enter() end, function() f16_mode:exit() end)
 
 do  -- hints
-    hs.hotkey.bind({}, 'f16', hs.hints.windowHints)
-    hs.hints.hintChars = {'q', 'w', 'e', 'r', 'u', 'i', 'o', 'p', 'h', 'j', 'k', 'l', 'm', ',', '.' }
+    -- hs.hotkey.bind({}, 'f16', hs.hints.windowHints)
+    -- hs.hints.hintChars = {'q', 'w', 'e', 'r', 'u', 'i', 'o', 'p', 'h', 'j', 'k', 'l', 'm', ',', '.' }
 end
 
 do  -- f13 (vimlike)
@@ -39,6 +39,10 @@ do  -- f13 (tab move)
         right = { mod = {'control'}, key = 'tab' }
     }
     tabTable['터미널'] = {
+        left = { mod = {'control', 'shift'}, key = 'tab' },
+        right = { mod = {'control'}, key = 'tab' }
+    }
+    tabTable['Terminal'] = {
         left = { mod = {'control', 'shift'}, key = 'tab' },
         right = { mod = {'control'}, key = 'tab' }
     }
@@ -65,14 +69,18 @@ do  -- app manager
 
     mode:bind({}, 'c', app_man:toggle('Google Chrome'))
     mode:bind({}, 'i', app_man:toggle('IntelliJ IDEA'))
-    -- mode:bind({}, 't', app_man:toggle('iTerm'))
     mode:bind({}, 'l', app_man:toggle('Line'))
     mode:bind({}, 'q', app_man:toggle('Sequel Pro'))
+    mode:bind({'shift'}, 'v', app_man:toggle('VimR'))
     mode:bind({}, 'v', app_man:toggle('MacVim'))
     mode:bind({}, 'n', app_man:toggle('Notes'))
     mode:bind({}, 's', app_man:toggle('Slack'))
     mode:bind({}, 'f', app_man:toggle('Firefox'))
     mode:bind({}, 'r', app_man:toggle('Reminders'))
+    mode:bind({}, 'e', app_man:toggle('Microsoft Excel'))
+    mode:bind({}, 'w', app_man:toggle('Microsoft Word'))
+    mode:bind({}, 'p', app_man:toggle('Preview'))
+    mode:bind({}, 'a', app_man:toggle('Safari'))
 
     mode:bind({'shift'}, 'tab', app_man.focusPreviousScreen)
     mode:bind({}, 'tab', app_man.focusNextScreen)

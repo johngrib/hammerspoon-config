@@ -11,7 +11,7 @@ local f15_mode = hs.hotkey.modal.new()
 -- local f16_mode = hs.hotkey.modal.new()
 local vim_mode = require('modules.vim'):init(f13_mode)
 
-hs.hotkey.bind({}, 'f16', function() f15_mode:enter() end, function() f15_mode:exit() end)
+hs.hotkey.bind({}, 'f17', function() f15_mode:enter() end, function() f15_mode:exit() end)
 -- hs.hotkey.bind({}, 'f16', function() f16_mode:enter() end, function() f16_mode:exit() end)
 
 do  -- hints
@@ -46,6 +46,10 @@ do  -- f13 (tab move)
         left = { mod = {'control', 'shift'}, key = 'tab' },
         right = { mod = {'control'}, key = 'tab' }
     }
+    tabTable['IntelliJ IDEA'] = {
+        left = { mod = {'command', 'shift'}, key = '[' },
+        right = { mod = {'command', 'shift'}, key = ']' }
+    }
     tabTable['_else_'] = {
         left = { mod = {'control'}, key = 'pageup' },
         right = { mod = {'control'}, key = 'pagedown' }
@@ -68,19 +72,21 @@ do  -- app manager
     local mode = f15_mode
 
     mode:bind({}, 'c', app_man:toggle('Google Chrome'))
-    mode:bind({}, 'i', app_man:toggle('IntelliJ IDEA'))
+    mode:bind({}, 'i', app_man:toggle('IntelliJ IDEA CE'))
     mode:bind({}, 'l', app_man:toggle('Line'))
     mode:bind({}, 'q', app_man:toggle('Sequel Pro'))
     mode:bind({'shift'}, 'v', app_man:toggle('VimR'))
     mode:bind({}, 'v', app_man:toggle('MacVim'))
     mode:bind({}, 'n', app_man:toggle('Notes'))
     mode:bind({}, 's', app_man:toggle('Slack'))
-    mode:bind({}, 'f', app_man:toggle('Firefox'))
+    -- mode:bind({}, 'f', app_man:toggle('Firefox'))
+    mode:bind({}, 'f', app_man:toggle('Finder'))
     mode:bind({}, 'r', app_man:toggle('Reminders'))
     mode:bind({}, 'e', app_man:toggle('Microsoft Excel'))
     mode:bind({}, 'w', app_man:toggle('Microsoft Word'))
     mode:bind({}, 'p', app_man:toggle('Preview'))
     mode:bind({}, 'a', app_man:toggle('Safari'))
+    mode:bind({}, 't', app_man:toggle('Telegram'))
 
     mode:bind({'shift'}, 'tab', app_man.focusPreviousScreen)
     mode:bind({}, 'tab', app_man.focusNextScreen)

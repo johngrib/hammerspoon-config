@@ -46,6 +46,10 @@ do  -- f13 (tab move)
         left = { mod = {'control', 'shift'}, key = 'tab' },
         right = { mod = {'control'}, key = 'tab' }
     }
+    tabTable['iTerm2'] = {
+        left = { mod = {'control', 'shift'}, key = 'tab' },
+        right = { mod = {'control'}, key = 'tab' }
+    }
     tabTable['IntelliJ IDEA'] = {
         left = { mod = {'command', 'shift'}, key = '[' },
         right = { mod = {'command', 'shift'}, key = ']' }

@@ -99,9 +99,10 @@ do  -- app manager
 end
 
 do  -- winmove
-    local win_move = require('johngrib.hammerspoon.winmove')
+    local win_move = require('modules.hammerspoon_winmove.hammerspoon_winmove')
     local mode = f15_mode
 
+    mode:bind({}, '0', win_move.default)
     mode:bind({}, '1', win_move.left_bottom)
     mode:bind({}, '2', win_move.bottom)
     mode:bind({}, '3', win_move.right_bottom)

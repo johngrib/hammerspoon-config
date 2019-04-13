@@ -12,14 +12,14 @@ local flag = {
 }
 
 local keySetDefault = {
-    up    = 'W',
-    left  = 'A',
-    down  = 'S',
-    right = 'D',
-    leftClick  = 'Q',
-    rightClick = 'E',
-    scrollUp   = 'R',
-    scrollDown = 'F'
+    up    = 'E',
+    left  = 'S',
+    down  = 'D',
+    right = 'F',
+    leftClick  = 'W',
+    rightClick = 'R',
+    scrollUp   = 'V',
+    scrollDown = 'C'
 }
 
 local getX = function()
@@ -74,20 +74,10 @@ function obj:init(key)
         end
     end
 
-    local mouse_w = mm(mouse_move_up(1))
-    local mouse_a = mm(mouse_move_left(1))
-    local mouse_s = mm(mouse_move_down(1))
-    local mouse_d = mm(mouse_move_right(1))
-
-    local mouse_w_off = mm(mouse_move_up(0))
-    local mouse_a_off = mm(mouse_move_left(0))
-    local mouse_s_off = mm(mouse_move_down(0))
-    local mouse_d_off = mm(mouse_move_right(0))
-
-    mouse_mode:bind({}, 'W', mouse_w, mouse_w_off, nil)
-    mouse_mode:bind({}, 'A', mouse_a, mouse_a_off, nil)
-    mouse_mode:bind({}, 'S', mouse_s, mouse_s_off, nil)
-    mouse_mode:bind({}, 'D', mouse_d, mouse_d_off, nil)
+    mouse_mode:bind({}, keySetDefault.up, mm(mouse_move_up(1)), mm(mouse_move_up(0)), nil)
+    mouse_mode:bind({}, keySetDefault.left, mm(mouse_move_left(1)), mm(mouse_move_left(0)), nil)
+    mouse_mode:bind({}, keySetDefault.down, mm(mouse_move_down(1)), mm(mouse_move_down(0)), nil)
+    mouse_mode:bind({}, keySetDefault.right, mm(mouse_move_right(1)), mm(mouse_move_right(0)), nil)
 
     mouse_mode:bind({}, ',', function() flag.dist = 1 end, function() flag.dist = 10 end, nil)
     mouse_mode:bind({}, '.', function() flag.dist = 1 end, function() flag.dist = 10 end, nil)
@@ -98,35 +88,34 @@ function obj:init(key)
     local mouse_cmd_s = mm(mouse_move_down(9))
     local mouse_cmd_d = mm(mouse_move_right(9))
 
-    local mouse_q = mm(function() hs.eventtap.leftClick(hs.mouse.getAbsolutePosition()) end)
-    local mouse_e = mm(function() hs.eventtap.rightClick(hs.mouse.getAbsolutePosition()) end)
-    local mouse_r = mm(function() hs.eventtap.scrollWheel({0,1}, {}, 'line') end)
-    local mouse_f = mm(function() hs.eventtap.scrollWheel({0,-1}, {}, 'line') end)
+    local mouse_click_left = mm(function() hs.eventtap.leftClick(hs.mouse.getAbsolutePosition()) end)
+    local mouse_click_right = mm(function() hs.eventtap.rightClick(hs.mouse.getAbsolutePosition()) end)
+    local mouse_wheel_up = mm(function() hs.eventtap.scrollWheel({0,1}, {}, 'line') end)
+    local mouse_wheel_down = mm(function() hs.eventtap.scrollWheel({0,-1}, {}, 'line') end)
+    local mouse_wheel_up_slow = mm(function() hs.eventtap.scrollWheel({0,1}, {}, 'pixel') end)
+    local mouse_wheel_down_slow = mm(function() hs.eventtap.scrollWheel({0,-1}, {}, 'pixel') end)
 
-    local mouse_s_r = mm(function() hs.eventtap.scrollWheel({0,1}, {}, 'pixel') end)
-    local mouse_s_f = mm(function() hs.eventtap.scrollWheel({0,-1}, {}, 'pixel') end)
-
-    local mouse_z = mm(function()
+    local mouse_center = mm(function()
         local screen = hs.window.focusedWindow():frame()
         local pt = hs.geometry.rectMidPoint(screen)
         hs.mouse.setAbsolutePosition(pt)
     end)
 
-    local mouse_s_z = mm(function()
+    local mouse_screen_center = mm(function()
         local screen = hs.window.focusedWindow():screen()
         local pt = hs.geometry.rectMidPoint(screen:fullFrame())
         hs.mouse.setAbsolutePosition(pt)
     end)
 
-    mouse_mode:bind({}, 'Q', mouse_q, nil, mouse_q)
-    mouse_mode:bind({}, 'E', mouse_e, nil, mouse_e)
-    mouse_mode:bind({}, 'R', mouse_r, nil, mouse_r)
-    mouse_mode:bind({}, 'F', mouse_f, nil, mouse_f)
+    mouse_mode:bind({}, keySetDefault.leftClick, mouse_click_left, nil, mouse_click_left)
+    mouse_mode:bind({}, keySetDefault.rightClick, mouse_click_right, nil, mouse_click_right)
+    mouse_mode:bind({}, keySetDefault.scrollUp, mouse_wheel_up, nil, mouse_wheel_up)
+    mouse_mode:bind({}, keySetDefault.scrollDown, mouse_wheel_down, nil, mouse_wheel_down)
 
-    mouse_mode:bind({'shift'}, 'R', mouse_s_r, nil, mouse_s_r)
-    mouse_mode:bind({'shift'}, 'F', mouse_s_f, nil, mouse_s_f)
-    mouse_mode:bind({}, 'Z', mouse_z)
-    mouse_mode:bind({'shift'}, 'Z', mouse_s_z)
+    mouse_mode:bind({'shift'}, keySetDefault.scrollUp, mouse_wheel_up_slow, nil, mouse_wheel_up_slow)
+    mouse_mode:bind({'shift'}, keySetDefault.scrollDown, mouse_wheel_down_slow, nil, mouse_wheel_down_slow)
+    mouse_mode:bind({}, 'Z', mouse_center)
+    mouse_mode:bind({'shift'}, 'Z', mouse_screen_center)
 
     local on_mouse_mode = function()
         mouse_mode.triggered = false

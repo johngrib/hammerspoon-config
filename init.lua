@@ -3,10 +3,10 @@
 require('luarocks.loader')
 
 require('johngrib.hammerspoon.caffein'):init({'control'}, 'f19')
--- require('modules.mouse'):init('f14')
+require('modules.mouse'):init('f14')
 
 local f13_mode = hs.hotkey.modal.new()
-local f14_mode = hs.hotkey.modal.new()
+-- local f14_mode = hs.hotkey.modal.new()
 local f15_mode = hs.hotkey.modal.new()
 -- local f16_mode = hs.hotkey.modal.new()
 local vim_mode = require('modules.vim'):init(f13_mode)
@@ -15,8 +15,8 @@ hs.hotkey.bind({}, 'f17', function() f15_mode:enter() end, function() f15_mode:e
 -- hs.hotkey.bind({}, 'f16', function() f16_mode:enter() end, function() f16_mode:exit() end)
 
 do  -- hints
-    hs.hotkey.bind({}, 'f14', hs.hints.windowHints)
-    hs.hints.hintChars = {'q', 'w', 'e', 'r', 'u', 'i', 'o', 'p', 'h', 'j', 'k', 'l', 'm', ',', '.' }
+    -- hs.hotkey.bind({}, 'f14', hs.hints.windowHints)
+    -- hs.hints.hintChars = {'q', 'w', 'e', 'r', 'u', 'i', 'o', 'p', 'h', 'j', 'k', 'l', 'm', ',', '.' }
 end
 
 do  -- f13 (vimlike)
@@ -84,7 +84,7 @@ do  -- app manager
     mode:bind({}, 'i', app_man:toggle('PhpStorm'))
     mode:bind({}, 'l', app_man:toggle('Line'))
     -- mode:bind({}, 'q', app_man:toggle('Sequel Pro'))
-    -- mode:bind({}, 'z', app_man:toggle('VimR'))
+    mode:bind({}, 'v', app_man:toggle('VimR'))
     -- mode:bind({}, 'v', app_man:toggle('MacVim'))
     mode:bind({}, 'n', app_man:toggle('Notes'))
     mode:bind({}, 's', app_man:toggle('Slack'))
@@ -96,6 +96,8 @@ do  -- app manager
     mode:bind({}, 'p', app_man:toggle('Preview'))
     -- mode:bind({}, 'a', app_man:toggle('Safari'))
     mode:bind({}, 't', app_man:toggle('Telegram'))
+    mode:bind({}, 'b', app_man:toggle('Robo 3T'))
+    mode:bind({}, 'o', app_man:toggle('Microsoft PowerPoint'))
 
     mode:bind({'shift'}, 'tab', app_man.focusPreviousScreen)
     mode:bind({}, 'tab', app_man.focusNextScreen)

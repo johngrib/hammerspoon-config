@@ -18,8 +18,8 @@ local keySetDefault = {
     right = 'F',
     leftClick  = 'W',
     rightClick = 'R',
-    scrollUp   = 'V',
-    scrollDown = 'C'
+    scrollUp   = 'K',
+    scrollDown = 'J'
 }
 
 local getX = function()
@@ -82,6 +82,7 @@ function obj:init(key)
     mouse_mode:bind({}, ',', function() flag.dist = 1 end, function() flag.dist = 10 end, nil)
     mouse_mode:bind({}, '.', function() flag.dist = 1 end, function() flag.dist = 10 end, nil)
     mouse_mode:bind({}, '/', function() flag.dist = 1 end, function() flag.dist = 10 end, nil)
+    mouse_mode:bind({}, ';', function() flag.dist = 1 end, function() flag.dist = 10 end, nil)
 
     local mouse_cmd_w = mm(mouse_move_up(9))
     local mouse_cmd_a = mm(mouse_move_left(9))

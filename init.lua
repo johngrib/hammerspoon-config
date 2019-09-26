@@ -105,7 +105,6 @@ do  -- app manager
     mode:bind({'shift'}, 'tab', app_man.focusPreviousScreen)
     mode:bind({}, 'tab', app_man.focusNextScreen)
 
-    hs.hotkey.bind({'cmd', 'shift'}, 'space', app_man:toggle('Terminal'))
     hs.hotkey.bind({'shift'}, 'f15', app_man:toggle('Terminal'))
 
     mvim = true

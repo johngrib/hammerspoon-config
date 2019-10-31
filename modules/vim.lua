@@ -60,6 +60,7 @@ function obj:init(mode)
 
         { mod={} , key='i' , func=self.off}        ,
         { mod={} , key='f' , func=hs.hints.windowHints } ,
+        { mod={} , key='q' , func=hs.caffeinate.systemSleep } ,
 
         { mod={} , key='p' , func=inputKey({'cmd'} , 'v')   , repetition=true } ,
         { mod={} , key='y' , func=inputKey({'cmd'} , 'c') } ,

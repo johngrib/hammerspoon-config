@@ -80,8 +80,7 @@ do  -- app manager
     local mode = f15_mode
 
     mode:bind({}, 'c', app_man:toggle('Google Chrome'))
-    -- mode:bind({}, 'i', app_man:toggle('IntelliJ IDEA Ultimate'))
-    mode:bind({}, 'i', app_man:toggle('IntelliJ IDEA CE'))
+    mode:bind({}, 'i', app_man:toggle('IntelliJ IDEA Ultimate', 'IntelliJ IDEA CE'))
     -- mode:bind({}, 'i', app_man:toggle('PhpStorm'))
     mode:bind({}, 'l', app_man:toggle('Line'))
     mode:bind({}, 'q', app_man:toggle('Sequel Pro'))

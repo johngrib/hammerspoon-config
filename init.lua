@@ -80,6 +80,7 @@ do  -- app manager
     local mode = f15_mode
 
     mode:bind({}, 'c', app_man:toggle('Google Chrome'))
+    -- mode:bind({}, 'i', app_man:toggle('IntelliJ IDEA Ultimate'))
     mode:bind({}, 'i', app_man:toggle('IntelliJ IDEA CE'))
     -- mode:bind({}, 'i', app_man:toggle('PhpStorm'))
     mode:bind({}, 'l', app_man:toggle('Line'))
@@ -101,11 +102,14 @@ do  -- app manager
     mode:bind({}, 'tab', app_man:toggle('Trello'))
     mode:bind({}, 'k', app_man:toggle('KakaoTalk'))
     mode:bind({}, 'space', app_man:toggle('Terminal'))
+    mode:bind({}, 'z', function() hs.eventtap.keyStroke({'command', 'shift'}, 'space') end)
 
-    mode:bind({'shift'}, 'tab', app_man.focusPreviousScreen)
+    -- mode:bind({'shift'}, 'tab', app_man.focusPreviousScreen)
     -- mode:bind({}, 'tab', app_man.focusNextScreen)
 
-    hs.hotkey.bind({'shift'}, 'f15', app_man:toggle('Terminal'))
+    hs.hotkey.bind({}, 'f18', function() hs.eventtap.keyStroke({'command', 'shift'}, 'space') end)
+    hs.hotkey.bind({'shift'}, 'f18', hs.hints.windowHints)
+    hs.hints.hintChars = {'q', 'w', 'e', 'r', 'u', 'i', 'o', 'p', 'h', 'j', 'k', 'l', 'm', ',', '.' }
 
     mvim = true
     mode:bind({'control'}, 'v', function()

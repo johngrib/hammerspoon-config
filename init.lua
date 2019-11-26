@@ -80,12 +80,12 @@ do  -- app manager
     local mode = f15_mode
 
     mode:bind({}, 'c', app_man:toggle('Google Chrome'))
-    mode:bind({}, 'i', app_man:toggle('IntelliJ IDEA Ultimate', 'IntelliJ IDEA CE'))
+    mode:bind({}, 'i', app_man:toggle('IntelliJ IDEA'))
     -- mode:bind({}, 'i', app_man:toggle('PhpStorm'))
     mode:bind({}, 'l', app_man:toggle('Line'))
     mode:bind({}, 'q', app_man:toggle('Sequel Pro'))
     mode:bind({}, 'v', app_man:toggle('VimR'))
-    -- mode:bind({}, 'v', app_man:toggle('MacVim'))
+    mode:bind({}, 'v', app_man:toggle('MacVim'))
     mode:bind({}, 'n', app_man:toggle('Notes'))
     mode:bind({}, 's', app_man:toggle('Slack'))
     mode:bind({}, 'f', app_man:toggle('Firefox'))
@@ -112,13 +112,7 @@ do  -- app manager
 
     mvim = true
     mode:bind({'control'}, 'v', function()
-        mvim = not mvim
-        if mvim then
-            vapp = "MacVim"
-        else
-            vapp = "VimR"
-        end
-        mode:bind({}, 'v', app_man:toggle(vapp))
+
     end)
 end
 

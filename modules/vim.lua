@@ -2,7 +2,6 @@ local obj = {}
 
 local vim_icon = hs.menubar.new()
 local inputEnglish = "com.apple.keylayout.ABC"
-local boxes = {}
 
 local cfg = {
     key_interval = 100,
@@ -82,7 +81,6 @@ function obj:init(mode)
         setVimDisplay(true)
         mode.triggered = false
         mode.on = true
-        show_status_bar(true)
     end
 
     self.off = function()
@@ -102,47 +100,13 @@ function obj:init(mode)
 
         mode.triggered = true
         mode.on = false
-        show_status_bar(false)
     end
 
     return self
 end
 
-function show_status_bar(stat)
-    if stat then
-        show_status_bar(false)
-        boxes = {}
-        hs.fnutils.each(hs.screen.allScreens(), function(scr)
-            local box = hs.drawing.rectangle(hs.geometry.rect(0,0,0,0))
-            draw_rectangle(box, scr, 0, scr:fullFrame().w, hs.drawing.color.red)
-            table.insert(boxes, box)
-        end)
-    else
-        hs.fnutils.each(boxes, function(box) box:delete() end)
-        boxes = {}
-    end
-end
-
 function isInScreen(screen, win)
   return win:screen() == screen
-end
-
-function draw_rectangle(target_draw, screen, offset, width, fill_color)
-  local screeng                  = screen:fullFrame()
-  local screen_frame_height      = screen:frame().y
-  local screen_full_frame_height = screeng.y
-  local height_delta             = screen_frame_height - screen_full_frame_height
-  local height                   = 23
-
-  target_draw:setSize(hs.geometry.rect(screeng.x + offset, screen_full_frame_height, width, height))
-  target_draw:setTopLeft(hs.geometry.point(screeng.x + offset, screen_full_frame_height))
-  target_draw:setFillColor(fill_color)
-  target_draw:setFill(true)
-  target_draw:setAlpha(0.5)
-  target_draw:setLevel(hs.drawing.windowLevels.overlay)
-  target_draw:setStroke(false)
-  target_draw:setBehavior(hs.drawing.windowBehaviors.canJoinAllSpaces)
-  target_draw:show()
 end
 
 function setVimDisplay(state)

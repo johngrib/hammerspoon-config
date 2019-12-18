@@ -3,10 +3,17 @@ local inputEnglish = "com.apple.keylayout.ABC"
 local box_height = 23
 local box_alpha = 0.5
 
+-- 입력소스 변경 이벤트에 이벤트 리스너를 달아준다
 hs.keycodes.inputSourceChanged(function()
     local input_source = hs.keycodes.currentSourceID()
     show_status_bar(not (input_source == inputEnglish))
 end)
+
+function show_aurora(scr)
+    local box = hs.drawing.rectangle(hs.geometry.rect(0,0,0,0))
+    draw_rectangle(box, scr, 0, scr:fullFrame().w, hs.drawing.color.osx_green)
+    table.insert(boxes, box)
+end
 
 function show_status_bar(stat)
     if stat then
@@ -18,13 +25,9 @@ end
 
 function enable_show()
     show_status_bar(false)
-    boxes = {}
+    reset_boxes()
     hs.fnutils.each(hs.screen.allScreens(), function(scr)
-        local box = hs.drawing.rectangle(hs.geometry.rect(0,0,0,0))
-        if not (box == nil) then
-            draw_rectangle(box, scr, 0, scr:fullFrame().w, hs.drawing.color.osx_green)
-            table.insert(boxes, box)
-        end
+        show_aurora(scr)
     end)
 end
 
@@ -34,6 +37,10 @@ function disable_show()
             box:delete()
         end
     end)
+    reset_boxes()
+end
+
+function reset_boxes()
     boxes = {}
 end
 

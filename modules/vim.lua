@@ -93,7 +93,7 @@ function obj:init(mode)
             if not (input_source == inputEnglish) then
                 hs.eventtap.keyStroke({}, 'right')
                 hs.keycodes.currentSourceID(inputEnglish)
-                hs.eventtap.keyStroke({}, 'escape')
+                -- hs.eventtap.keyStroke({}, 'escape')
             end
             hs.eventtap.keyStroke({}, 'escape')
         end

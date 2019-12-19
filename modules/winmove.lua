@@ -43,5 +43,6 @@ return {
     ['right_top']    = move_win(right, top, half_width, half_height),
     ['prev_screen']  = send_window_prev_screen,
     ['next_screen']  = send_window_next_screen,
+    ['move']         = move_win,
 }
 

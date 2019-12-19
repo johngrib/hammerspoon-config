@@ -131,7 +131,7 @@ local function move_win(xx, yy, ww, hh)
 end
 
 do  -- winmove
-    local win_move = require('modules.hammerspoon_winmove.hammerspoon_winmove')
+    local win_move = require('modules.winmove')
     local mode = f15_mode
 
     mode:bind({}, '0', win_move.default)

@@ -1,58 +1,55 @@
 local boxes = {}
 local inputEnglish = "com.apple.keylayout.ABC"
 local box_height = 23
-local box_alpha = 0.5
+local box_alpha = 0.35
+local GREEN = hs.drawing.color.osx_green
 
 -- 입력소스 변경 이벤트에 이벤트 리스너를 달아준다
 hs.keycodes.inputSourceChanged(function()
-    local input_source = hs.keycodes.currentSourceID()
-    show_status_bar(not (input_source == inputEnglish))
+    disable_show()
+    if hs.keycodes.currentSourceID() ~= inputEnglish then
+        enable_show()
+    end
 end)
 
-function show_aurora(scr)
-    local box = hs.drawing.rectangle(hs.geometry.rect(0,0,0,0))
-    draw_rectangle(box, scr, 0, scr:fullFrame().w, hs.drawing.color.osx_green)
-    table.insert(boxes, box)
-end
-
-function show_status_bar(stat)
-    if stat then
-        enable_show()
-    else
-        disable_show()
-    end
-end
-
 function enable_show()
-    show_status_bar(false)
     reset_boxes()
     hs.fnutils.each(hs.screen.allScreens(), function(scr)
-        show_aurora(scr)
+        local frame = scr:fullFrame()
+
+        local box = newBox()
+        draw_rectangle(box, frame.x, 0, frame.w, box_height, GREEN)
+        table.insert(boxes, box)
+
+        local box2 = newBox()
+        draw_rectangle(box2, frame.x, frame.h - 10, frame.w, box_height, GREEN)
+        table.insert(boxes, box2)
     end)
 end
 
 function disable_show()
     hs.fnutils.each(boxes, function(box)
-        if not (box == nil) then
+        if box ~= nil then
             box:delete()
         end
     end)
     reset_boxes()
 end
 
+function newBox()
+    return hs.drawing.rectangle(hs.geometry.rect(0,0,0,0))
+end
+
 function reset_boxes()
     boxes = {}
 end
 
-function draw_rectangle(target_draw, screen, offset, width, fill_color)
-  local screeng                  = screen:fullFrame()
-  local screen_frame_height      = screen:frame().y
-  local screen_full_frame_height = screeng.y
-  local height_delta             = screen_frame_height - screen_full_frame_height
-  local height                   = box_height
+function draw_rectangle(target_draw, x, y, width, height, fill_color)
+  -- 그릴 영역 크기를 잡는다
+  target_draw:setSize(hs.geometry.rect(x, y, width, height))
+  -- 그릴 영역의 위치를 잡는다
+  target_draw:setTopLeft(hs.geometry.point(x, y))
 
-  target_draw:setSize(hs.geometry.rect(screeng.x + offset, screen_full_frame_height, width, height))
-  target_draw:setTopLeft(hs.geometry.point(screeng.x + offset, screen_full_frame_height))
   target_draw:setFillColor(fill_color)
   target_draw:setFill(true)
   target_draw:setAlpha(box_alpha)
@@ -61,3 +58,4 @@ function draw_rectangle(target_draw, screen, offset, width, fill_color)
   target_draw:setBehavior(hs.drawing.windowBehaviors.canJoinAllSpaces)
   target_draw:show()
 end
+

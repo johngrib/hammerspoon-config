@@ -8,11 +8,11 @@ require('modules.inputsource_aurora')
 
 local f13_mode = hs.hotkey.modal.new()
 -- local f14_mode = hs.hotkey.modal.new()
-local f15_mode = hs.hotkey.modal.new()
+local f17_mode = hs.hotkey.modal.new()
 -- local f16_mode = hs.hotkey.modal.new()
 local vim_mode = require('modules.vim'):init(f13_mode)
 
-hs.hotkey.bind({}, 'f17', function() f15_mode:enter() end, function() f15_mode:exit() end)
+hs.hotkey.bind({}, 'f17', function() f17_mode:enter() end, function() f17_mode:exit() end)
 -- hs.hotkey.bind({}, 'f16', function() f16_mode:enter() end, function() f16_mode:exit() end)
 
 do  -- hints
@@ -78,7 +78,7 @@ end
 
 do  -- app manager
     local app_man = require('modules.appman')
-    local mode = f15_mode
+    local mode = f17_mode
 
     mode:bind({}, 'c', app_man:toggle('Google Chrome'))
     mode:bind({}, 'i', app_man:toggle('IntelliJ IDEA'))
@@ -119,7 +119,7 @@ end
 
 do  -- winmove
     local win_move = require('modules.winmove')
-    local mode = f15_mode
+    local mode = f17_mode
 
     mode:bind({}, '0', win_move.default)
     mode:bind({'shift'}, '0', win_move.move(1/3, 0, 3/2, 1))
@@ -141,8 +141,8 @@ end
 do  -- clipboard history
     local clipboard = require('modules.clipboard')
     clipboard.setSize(10)
-    f15_mode:bind({}, '`', clipboard.showList)
-    f15_mode:bind({'shift'}, '`', clipboard.clear)
+    f17_mode:bind({}, '`', clipboard.showList)
+    f17_mode:bind({'shift'}, '`', clipboard.clear)
 end
 
 hs.alert.show('loaded')

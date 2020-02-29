@@ -3,7 +3,7 @@
 require('luarocks.loader')
 
 require('johngrib.hammerspoon.caffein'):init({'control'}, 'f19')
-require('modules.mouse'):init('f14')
+-- require('modules.mouse'):init('f14')
 require('modules.inputsource_aurora')
 
 local f13_mode = hs.hotkey.modal.new()

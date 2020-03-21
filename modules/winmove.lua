@@ -14,7 +14,7 @@ local function move_win(xx, yy, ww, hh)
         f.y = max.h * yy
         f.w = max.w * ww
         f.h = max.h * hh
-        win:setFrame(f)
+        win:setFrame(f, 0.08)
     end
 end
 
@@ -30,13 +30,18 @@ local function send_window_next_screen()
     win:moveToScreen(nextScreen)
 end
 
+local function maximize()
+    local win = hs.window.focusedWindow()
+    win:maximize()
+end
+
 return {
     ['default']      = move_win(1/4, 0, 1/2, 1),
     ['left_bottom']  = move_win(0, 1/2, 1/2, 1/2),
     ['bottom']       = move_win(0, 1/2, 1, 1/2),
     ['right_bottom'] = move_win(1/2, 1/2, 1/2, 1/2),
     ['left']         = move_win(0, 0, 1/2, 1),
-    ['full_screen']  = move_win(0, 0, 1, 1),
+    ['full_screen']  = maximize,
     ['right']        = move_win(1/2, 0, 1/2, 1),
     ['left_top']     = move_win(0, 0, 1/2, 1/2),
     ['top']          = move_win(0, 0, 1, 1/2),

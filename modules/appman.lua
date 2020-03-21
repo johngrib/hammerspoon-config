@@ -48,11 +48,6 @@ end
 
 function obj:init(mod, key)
 
-    --app_mode:bind({}, 'left', function() hS.WINDOW.FOCUSEDwINDOW():FOCUSwINDOWWest() end)
-    --app_mode:bind({}, 'down', function() hs.window.focusedWindow():focusWindowSouth() end)
-    --app_mode:bind({}, 'up', function() hs.window.focusedWindow():focusWindowNorth() end)
-    --app_mode:bind({}, 'right', function() hs.window.focusedWindow():focusWindowEast() end)
-
     return self
 end
 

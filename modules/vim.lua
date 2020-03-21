@@ -30,44 +30,6 @@ function obj:init(mode)
         { mod={} , key='k' , func=rapidKey({} , 'up')    , repetition=true } ,
         { mod={} , key='l' , func=rapidKey({} , 'right') , repetition=true } ,
 
-        { mod={'shift'} , key='h' , func=rapidKey({'shift'} , 'left')  , repetition=true } ,
-        { mod={'shift'} , key='j' , func=rapidKey({'shift'} , 'down')  , repetition=true } ,
-        { mod={'shift'} , key='k' , func=rapidKey({'shift'} , 'up')    , repetition=true } ,
-        { mod={'shift'} , key='l' , func=rapidKey({'shift'} , 'right') , repetition=true } ,
-
-        { mod={'ctrl'} , key='h' , func=rapidKey({'ctrl'} , 'left')  , repetition=true } ,
-        { mod={'ctrl'} , key='j' , func=rapidKey({'ctrl'} , 'down')  , repetition=true } ,
-        { mod={'ctrl'} , key='k' , func=rapidKey({'ctrl'} , 'up')    , repetition=true } ,
-        { mod={'ctrl'} , key='l' , func=rapidKey({'ctrl'} , 'right') , repetition=true } ,
-
-        { mod={'cmd'} , key='h' , func=rapidKey({'ctrl'} , 'left')  , repetition=true } ,
-        { mod={'cmd'} , key='j' , func=rapidKey({'ctrl'} , 'down')  , repetition=true } ,
-        { mod={'cmd'} , key='k' , func=rapidKey({'ctrl'} , 'up')    , repetition=true } ,
-        { mod={'cmd'} , key='l' , func=rapidKey({'ctrl'} , 'right') , repetition=true } ,
-
-        { mod={} , key='w' , func=rapidKey({'alt'} , 'right') , repetition=true } ,
-        { mod={} , key='b' , func=rapidKey({'alt'} , 'left')  , repetition=true } ,
-
-        { mod={'shift'} , key='w' , func=rapidKey({'shift' , 'alt'} , 'right') , repetition=true } ,
-        { mod={'shift'} , key='b' , func=rapidKey({'shift' , 'alt'} , 'left')  , repetition=true } ,
-
-        { mod={} , key='0' , func=inputKey({'cmd'} , 'left') }  ,
-        { mod={} , key='4' , func=inputKey({'cmd'} , 'right') } ,
-
-        { mod={'shift'} , key='0' , func=inputKey({'cmd', 'shift'} , 'left') }  ,
-        { mod={'shift'} , key='4' , func=inputKey({'cmd', 'shift'} , 'right') } ,
-
-        { mod={} , key='i' , func=self.off}        ,
-        { mod={} , key='f' , func=hs.hints.windowHints } ,
-        { mod={} , key='q' , func=hs.caffeinate.systemSleep } ,
-
-        { mod={} , key='p' , func=inputKey({'cmd'} , 'v')   , repetition=true } ,
-        { mod={} , key='y' , func=inputKey({'cmd'} , 'c') } ,
-        { mod={} , key='d' , func=inputKey({'cmd'} , 'x') } ,
-
-        { mod={}, key='x', func=rapidKey({}, 'forwarddelete'), repetition=true },
-        { mod={'shift'}, key='x', func=rapidKey({}, 'DELETE'), repetition=true },
-
     }, function(v)
         if v.repetition then
             mode:bind(v.mod, v.key, v.func, vim_end, v.func)

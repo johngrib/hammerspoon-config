@@ -6,20 +6,19 @@ require('johngrib.hammerspoon.caffein'):init({'control'}, 'f19')
 -- require('modules.mouse'):init('f14')
 require('modules.inputsource_aurora')
 
-local f13_mode = hs.hotkey.modal.new()
--- local f14_mode = hs.hotkey.modal.new()
-local f17_mode = hs.hotkey.modal.new()
-local vim_mode = require('modules.vim'):init(f13_mode)
+local vim_mode = hs.hotkey.modal.new()
+local app_mode = hs.hotkey.modal.new()
+local vimlike = require('modules.vim'):init(vim_mode)
 
-hs.hotkey.bind({}, 'f17', function() f17_mode:enter() end, function() f17_mode:exit() end)
-hs.hotkey.bind({}, 'f20', function() f17_mode:enter() end, function() f17_mode:exit() end)
+hs.hotkey.bind({}, 'f17', function() app_mode:enter() end, function() app_mode:exit() end)
+hs.hotkey.bind({}, 'f20', function() app_mode:enter() end, function() app_mode:exit() end)
 
 do  -- f13 (vimlike)
-    hs.hotkey.bind({}, 'f13', vim_mode.on, vim_mode.off)
-    hs.hotkey.bind({'cmd'}, 'f13', vim_mode.on, vim_mode.off)
-    hs.hotkey.bind({'shift'}, 'f13', vim_mode.on, vim_mode.off)
+    hs.hotkey.bind({}, 'f13', vimlike.on, vimlike.off)
+    hs.hotkey.bind({'cmd'}, 'f13', vimlike.on, vimlike.off)
+    hs.hotkey.bind({'shift'}, 'f13', vimlike.on, vimlike.off)
 
-    f13_mode:bind({'shift'}, 'r', hs.reload, vim_mode.close)
+    vim_mode:bind({'shift'}, 'r', hs.reload, vimlike.close)
 end
 
 do  -- f13 (tab move)
@@ -66,13 +65,13 @@ do  -- f13 (tab move)
         end
     end
 
-    f13_mode:bind({}, ',', tabMove('left'), vim_mode.close, tabMove('left'))
-    f13_mode:bind({}, '.', tabMove('right'), vim_mode.close, tabMove('right'))
+    vim_mode:bind({}, ',', tabMove('left'), vimlike.close, tabMove('left'))
+    vim_mode:bind({}, '.', tabMove('right'), vimlike.close, tabMove('right'))
 end
 
 do  -- app manager
     local app_man = require('modules.appman')
-    local mode = f17_mode
+    local mode = app_mode
 
     mode:bind({}, 'c', app_man:toggle('Google Chrome'))
     mode:bind({}, 'i', app_man:toggle('IntelliJ IDEA'))
@@ -99,12 +98,21 @@ do  -- app manager
     mode:bind({}, ',', app_man:toggle('System Preferences'))
     mode:bind({}, 'z', function() hs.eventtap.keyStroke({'command', 'shift'}, 'space') end)
 
+
     -- mode:bind({'shift'}, 'tab', app_man.focusPreviousScreen)
     -- mode:bind({}, 'tab', app_man.focusNextScreen)
 
     hs.hotkey.bind({}, 'f18', function() hs.eventtap.keyStroke({'command', 'shift'}, 'space') end)
     mode:bind({}, 'q', hs.hints.windowHints)
-    hs.hints.hintChars = {'q', 'w', 'e', 'r', 'u', 'i', 'o', 'p', 'h', 'j', 'k', 'l', 'm', ',', '.' }
+    hs.hints.hintChars = {
+        'q', 'w', 'e', 'r',
+        'a', 's', 'd', 'f',
+        'z', 'x', 'c', 'v',
+        '1', '2', '3', '4',
+        'j', 'k',
+        'i', 'o',
+        'm', ','
+    }
 
     mvim = true
     mode:bind({'control'}, 'v', function()
@@ -114,7 +122,7 @@ end
 
 do  -- winmove
     local win_move = require('modules.winmove')
-    local mode = f17_mode
+    local mode = app_mode
 
     mode:bind({}, '0', win_move.default)
     mode:bind({'shift'}, '0', win_move.move(1/6, 0, 4/6, 1))
@@ -136,8 +144,8 @@ end
 do  -- clipboard history
     local clipboard = require('modules.clipboard')
     clipboard.setSize(10)
-    f17_mode:bind({}, '`', clipboard.showList)
-    f17_mode:bind({'shift'}, '`', clipboard.clear)
+    app_mode:bind({}, '`', clipboard.showList)
+    app_mode:bind({'shift'}, '`', clipboard.clear)
 end
 
 hs.alert.show('loaded')

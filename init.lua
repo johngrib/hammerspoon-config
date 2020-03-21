@@ -79,7 +79,7 @@ do  -- app manager
     -- mode:bind({}, 'i', app_man:toggle('PhpStorm'))
     mode:bind({}, 'l', app_man:toggle('Line'))
     -- mode:bind({}, 'q', app_man:toggle('Sequel Pro'))
-    -- mode:bind({}, 'v', app_man:toggle('VimR'))
+    mode:bind({}, 'v', app_man:toggle('VimR'))
     -- mode:bind({}, 'v', app_man:toggle('MacVim'))
     mode:bind({}, 'n', app_man:toggle('Notes'))
     mode:bind({}, 's', app_man:toggle('Slack'))
@@ -117,12 +117,12 @@ do  -- winmove
     local mode = f17_mode
 
     mode:bind({}, '0', win_move.default)
-    mode:bind({'shift'}, '0', win_move.move(1/3, 0, 3/2, 1))
+    mode:bind({'shift'}, '0', win_move.move(1/6, 0, 4/6, 1))
     mode:bind({}, '1', win_move.left_bottom)
     mode:bind({}, '2', win_move.bottom)
     mode:bind({}, '3', win_move.right_bottom)
     mode:bind({}, '4', win_move.left)
-    mode:bind({'shift'}, '4', win_move.move(0, 0, 3/2, 1))
+    mode:bind({'shift'}, '4', win_move.move(0, 0, 2/3, 1))
     mode:bind({}, '5', win_move.full_screen)
     mode:bind({}, '6', win_move.right)
     mode:bind({'shift'}, '6', win_move.move(1/3, 0, 2/3, 1))

@@ -2,14 +2,15 @@
 
 require('luarocks.loader')
 
-require('johngrib.hammerspoon.caffein'):init({'control'}, 'f19')
 -- require('modules.mouse'):init('f14')
 require('modules.inputsource_aurora')
 
 local vim_mode = hs.hotkey.modal.new()
 local app_mode = hs.hotkey.modal.new()
+local win_mode = hs.hotkey.modal.new()
 local vimlike = require('modules.vim'):init(vim_mode)
 
+hs.hotkey.bind({}, 'f16', function() win_mode:enter() end, function() win_mode:exit() end)
 hs.hotkey.bind({}, 'f17', function() app_mode:enter() end, function() app_mode:exit() end)
 hs.hotkey.bind({}, 'f20', function() app_mode:enter() end, function() app_mode:exit() end)
 
@@ -17,6 +18,7 @@ do  -- f13 (vimlike)
     hs.hotkey.bind({}, 'f13', vimlike.on, vimlike.off)
     hs.hotkey.bind({'cmd'}, 'f13', vimlike.on, vimlike.off)
     hs.hotkey.bind({'shift'}, 'f13', vimlike.on, vimlike.off)
+    vim_mode:bind({}, 'q', hs.caffeinate.systemSleep, vimlike.close)
 
     vim_mode:bind({'shift'}, 'r', hs.reload, vimlike.close)
 end
@@ -41,8 +43,8 @@ do  -- f13 (tab move)
         right = { mod = {'control'}, key = 'tab' }
     }
     tabTable['iTerm2'] = {
-        left = { mod = {'control', 'shift'}, key = 'tab' },
-        right = { mod = {'control'}, key = 'tab' }
+        left = { mod = {'control'}, key = 'tab' },
+        right = { mod = {'control', 'shift'}, key = 'tab' }
     }
     tabTable['IntelliJ IDEA'] = {
         left = { mod = {'command', 'shift'}, key = '[' },
@@ -94,7 +96,8 @@ do  -- app manager
     -- mode:bind({}, 'b', app_man:toggle('Robo 3T'))
     mode:bind({}, 'tab', app_man:toggle('Trello'))
     mode:bind({}, 'k', app_man:toggle('KakaoTalk'))
-    mode:bind({}, 'space', app_man:toggle('Terminal'))
+    -- mode:bind({}, 'space', app_man:toggle('Terminal'))
+    mode:bind({}, 'space', app_man:toggle('iTerm'))
     mode:bind({}, ',', app_man:toggle('System Preferences'))
     mode:bind({}, 'z', function() hs.eventtap.keyStroke({'command', 'shift'}, 'space') end)
 
@@ -122,7 +125,7 @@ end
 
 do  -- winmove
     local win_move = require('modules.winmove')
-    local mode = app_mode
+    local mode = win_mode
 
     mode:bind({}, '0', win_move.default)
     mode:bind({'shift'}, '0', win_move.move(1/6, 0, 4/6, 1))
@@ -147,6 +150,22 @@ do  -- clipboard history
     app_mode:bind({}, '`', clipboard.showList)
     app_mode:bind({'shift'}, '`', clipboard.clear)
 end
+
+-- spoon plugins
+hs.loadSpoon("SpoonInstall")
+spoon.SpoonInstall.use_syncinstall = false
+
+function plugInstall()
+    local Install=spoon.SpoonInstall
+    Install:updateRepo('default')
+
+    Install:installSpoonFromRepo('Caffeine')
+
+    hs.alert.show('plugin installed')
+end
+
+
+require('modules.Caffeine'):init(spoon)
 
 hs.alert.show('loaded')
 

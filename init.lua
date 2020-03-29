@@ -21,6 +21,11 @@ do  -- f13 (vimlike)
     vim_mode:bind({}, 'q', hs.caffeinate.systemSleep, vimlike.close)
 
     vim_mode:bind({'shift'}, 'r', hs.reload, vimlike.close)
+
+    vim_mode:bind({}, 'a', function()
+        local activeAppName = hs.application.frontmostApplication():name()
+        hs.alert.show(activeAppName)
+    end, vimlike.close)
 end
 
 do  -- f13 (tab move)
@@ -43,8 +48,8 @@ do  -- f13 (tab move)
         right = { mod = {'control'}, key = 'tab' }
     }
     tabTable['iTerm2'] = {
-        left = { mod = {'control'}, key = 'tab' },
-        right = { mod = {'control', 'shift'}, key = 'tab' }
+        left = { mod = {'shift', 'command'}, key = '[' },
+        right = { mod = {'shift', 'command'}, key = ']' }
     }
     tabTable['IntelliJ IDEA'] = {
         left = { mod = {'command', 'shift'}, key = '[' },
@@ -125,7 +130,8 @@ end
 
 do  -- winmove
     local win_move = require('modules.winmove')
-    local mode = win_mode
+    -- local mode = win_mode
+    local mode = app_mode
 
     mode:bind({}, '0', win_move.default)
     mode:bind({'shift'}, '0', win_move.move(1/6, 0, 4/6, 1))

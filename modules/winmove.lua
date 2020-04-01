@@ -10,8 +10,8 @@ local function move_win(xx, yy, ww, hh)
         local win = hs.window.focusedWindow()
         local f = win:frame()
         local max = win:screen():frame()
-        f.x = max.w * xx
-        f.y = max.h * yy
+        f.x = max.x + max.w * xx
+        f.y = max.y + max.h * yy
         f.w = max.w * ww
         f.h = max.h * hh
         win:setFrame(f, 0.08)

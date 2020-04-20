@@ -101,8 +101,8 @@ do  -- app manager
     -- mode:bind({}, 'b', app_man:toggle('Robo 3T'))
     mode:bind({}, 'tab', app_man:toggle('Trello'))
     mode:bind({}, 'k', app_man:toggle('KakaoTalk'))
-    -- mode:bind({}, 'space', app_man:toggle('Terminal'))
-    mode:bind({}, 'space', app_man:toggle('iTerm'))
+    mode:bind({}, 'space', app_man:toggle('Terminal'))
+    -- mode:bind({}, 'space', app_man:toggle('iTerm'))
     mode:bind({}, ',', app_man:toggle('System Preferences'))
     mode:bind({}, 'z', function() hs.eventtap.keyStroke({'command', 'shift'}, 'space') end)
 

@@ -84,14 +84,14 @@ do  -- app manager
     mode:bind({}, 'i', app_man:toggle('IntelliJ IDEA'))
     -- mode:bind({}, 'i', app_man:toggle('PhpStorm'))
     mode:bind({}, 'l', app_man:toggle('Line'))
-    -- mode:bind({}, 'q', app_man:toggle('Sequel Pro'))
+    mode:bind({}, 'q', app_man:toggle('Sequel Pro'))
     mode:bind({}, 'v', app_man:toggle('VimR'))
     -- mode:bind({}, 'v', app_man:toggle('MacVim'))
     mode:bind({}, 'n', app_man:toggle('Notes'))
     mode:bind({}, 's', app_man:toggle('Slack'))
     mode:bind({}, 'f', app_man:toggle('Firefox'))
     mode:bind({}, 'e', app_man:toggle('Finder'))
-    mode:bind({}, 'r', app_man:toggle('Reminders'))
+    -- mode:bind({}, 'r', app_man:toggle('Reminders'))
     -- mode:bind({}, 'e', app_man:toggle('SpringToolSuite4'))
     -- mode:bind({}, 'x', app_man:toggle('Microsoft Excel'))
     -- mode:bind({}, 'w', app_man:toggle('Microsoft Word'))
@@ -99,7 +99,7 @@ do  -- app manager
     mode:bind({}, 'a', app_man:toggle('Safari'))
     mode:bind({}, 't', app_man:toggle('Telegram'))
     -- mode:bind({}, 'b', app_man:toggle('Robo 3T'))
-    mode:bind({}, 'tab', app_man:toggle('Trello'))
+    mode:bind({}, 'r', app_man:toggle('Trello'))
     mode:bind({}, 'k', app_man:toggle('KakaoTalk'))
     mode:bind({}, 'space', app_man:toggle('Terminal'))
     -- mode:bind({}, 'space', app_man:toggle('iTerm'))
@@ -111,7 +111,7 @@ do  -- app manager
     -- mode:bind({}, 'tab', app_man.focusNextScreen)
 
     hs.hotkey.bind({}, 'f18', function() hs.eventtap.keyStroke({'command', 'shift'}, 'space') end)
-    mode:bind({}, 'q', hs.hints.windowHints)
+    mode:bind({}, 'tab', hs.hints.windowHints)
     hs.hints.hintChars = {
         'q', 'w', 'e', 'r',
         'a', 's', 'd', 'f',

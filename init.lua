@@ -1,16 +1,23 @@
 -- hammerspoon config
 
 require('luarocks.loader')
-
 -- require('modules.mouse'):init('f14')
 require('modules.inputsource_aurora')
 
+local inputEnglish = "com.apple.keylayout.ABC"
+local inputKorean = "org.youknowone.inputmethod.Gureum.han2"
+
 local vim_mode = hs.hotkey.modal.new()
 local app_mode = hs.hotkey.modal.new()
-local win_mode = hs.hotkey.modal.new()
 local vimlike = require('modules.vim'):init(vim_mode)
 
-hs.hotkey.bind({}, 'f16', function() win_mode:enter() end, function() win_mode:exit() end)
+hs.hotkey.bind({}, 'f16', function()
+    local input_source = hs.keycodes.currentSourceID()
+    hs.keycodes.currentSourceID(inputEnglish)
+    hs.eventtap.keyStroke({}, '`')
+    hs.keycodes.currentSourceID(input_source)
+end)
+
 hs.hotkey.bind({}, 'f17', function() app_mode:enter() end, function() app_mode:exit() end)
 hs.hotkey.bind({}, 'f20', function() app_mode:enter() end, function() app_mode:exit() end)
 
@@ -130,7 +137,6 @@ end
 
 do  -- winmove
     local win_move = require('modules.winmove')
-    -- local mode = win_mode
     local mode = app_mode
 
     mode:bind({}, '0', win_move.default)

@@ -1,7 +1,7 @@
 -- hammerspoon config
 
 require('luarocks.loader')
--- require('modules.mouse'):init('f14')
+require('modules.mouse'):init('f15')
 require('modules.inputsource_aurora')
 
 local inputEnglish = "com.apple.keylayout.ABC"

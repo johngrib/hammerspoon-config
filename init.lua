@@ -19,7 +19,12 @@ hs.hotkey.bind({}, 'f16', function()
 end)
 
 hs.hotkey.bind({}, 'f17', function() app_mode:enter() end, function() app_mode:exit() end)
-hs.hotkey.bind({}, 'f20', function() app_mode:enter() end, function() app_mode:exit() end)
+
+hs.hotkey.bind({}, 'f19', function()
+    local screen = hs.window.focusedWindow():screen()
+    local pt = hs.geometry.rectMidPoint(screen:fullFrame())
+    hs.mouse.setAbsolutePosition(pt)
+end)
 
 do  -- f13 (vimlike)
     hs.hotkey.bind({}, 'f13', vimlike.on, vimlike.off)

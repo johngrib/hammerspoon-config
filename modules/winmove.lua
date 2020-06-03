@@ -18,6 +18,17 @@ local function move_win(xx, yy, ww, hh)
     end
 end
 
+local function move_win_relative(xx, yy)
+    return function()
+        local win = hs.window.focusedWindow()
+        local f = win:frame()
+        local max = win:screen():frame()
+        f.x = f.x + xx
+        f.y = f.y + yy
+        win:setFrame(f, 0.08)
+    end
+end
+
 local function send_window_prev_screen()
     local win = hs.window.focusedWindow()
     local nextScreen = win:screen():previous()
@@ -49,5 +60,6 @@ return {
     ['prev_screen']  = send_window_prev_screen,
     ['next_screen']  = send_window_next_screen,
     ['move']         = move_win,
+    ['move_relative'] = move_win_relative,
 }
 

@@ -16,8 +16,8 @@ local keySetDefault = {
     left  = 'S',
     down  = 'D',
     right = 'F',
-    leftClick  = 'W',
-    rightClick = 'R',
+    leftClick  = 'M',
+    rightClick = ',',
     scrollUp   = 'K',
     scrollDown = 'J'
 }
@@ -74,10 +74,10 @@ function obj:init(key)
         end
     end
 
-    mouse_mode:bind({}, keySetDefault.up, mm(mouse_move_up(1)), mm(mouse_move_up(0)), nil)
-    mouse_mode:bind({}, keySetDefault.left, mm(mouse_move_left(1)), mm(mouse_move_left(0)), nil)
-    mouse_mode:bind({}, keySetDefault.down, mm(mouse_move_down(1)), mm(mouse_move_down(0)), nil)
-    mouse_mode:bind({}, keySetDefault.right, mm(mouse_move_right(1)), mm(mouse_move_right(0)), nil)
+    mouse_mode:bind({}, 'e', mm(mouse_move_up(1)), mm(mouse_move_up(0)), nil)
+    mouse_mode:bind({}, 's', mm(mouse_move_left(1)), mm(mouse_move_left(0)), nil)
+    mouse_mode:bind({}, 'd', mm(mouse_move_down(1)), mm(mouse_move_down(0)), nil)
+    mouse_mode:bind({}, 'f', mm(mouse_move_right(1)), mm(mouse_move_right(0)), nil)
 
     mouse_mode:bind({}, ',', function() flag.dist = 1 end, function() flag.dist = 10 end, nil)
     mouse_mode:bind({}, '.', function() flag.dist = 1 end, function() flag.dist = 10 end, nil)
@@ -108,13 +108,13 @@ function obj:init(key)
         hs.mouse.setAbsolutePosition(pt)
     end)
 
-    mouse_mode:bind({}, keySetDefault.leftClick, mouse_click_left, nil, mouse_click_left)
-    mouse_mode:bind({}, keySetDefault.rightClick, mouse_click_right, nil, mouse_click_right)
-    mouse_mode:bind({}, keySetDefault.scrollUp, mouse_wheel_up, nil, mouse_wheel_up)
-    mouse_mode:bind({}, keySetDefault.scrollDown, mouse_wheel_down, nil, mouse_wheel_down)
+    mouse_mode:bind({}, 'm', mouse_click_left, nil, mouse_click_left)
+    mouse_mode:bind({}, ',', mouse_click_right, nil, mouse_click_right)
+    mouse_mode:bind({}, 'k', mouse_wheel_up, nil, mouse_wheel_up)
+    mouse_mode:bind({}, 'j', mouse_wheel_down, nil, mouse_wheel_down)
 
-    mouse_mode:bind({'shift'}, keySetDefault.scrollUp, mouse_wheel_up_slow, nil, mouse_wheel_up_slow)
-    mouse_mode:bind({'shift'}, keySetDefault.scrollDown, mouse_wheel_down_slow, nil, mouse_wheel_down_slow)
+    mouse_mode:bind({'shift'}, 'k', mouse_wheel_up_slow, nil, mouse_wheel_up_slow)
+    mouse_mode:bind({'shift'}, 'j', mouse_wheel_down_slow, nil, mouse_wheel_down_slow)
     mouse_mode:bind({}, 'Z', mouse_center)
     mouse_mode:bind({'shift'}, 'Z', mouse_screen_center)
 

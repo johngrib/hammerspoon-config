@@ -114,6 +114,8 @@ do  -- app manager
     mode:bind({}, 'r', app_man:toggle('Trello'))
     mode:bind({}, 'k', app_man:toggle('KakaoTalk'))
     mode:bind({}, 'space', app_man:toggle('Terminal'))
+    -- mode:bind({}, 'space', app_man:toggle('Alacritty'))
+    -- mode:bind({'shift'}, 'space', app_man:toggle('Alacritty'))
     -- mode:bind({}, 'space', app_man:toggle('iTerm'))
     mode:bind({}, ',', app_man:toggle('System Preferences'))
     mode:bind({}, 'z', function() hs.eventtap.keyStroke({'command', 'shift'}, 'space') end)
@@ -159,6 +161,10 @@ do  -- winmove
     mode:bind({}, '9', win_move.right_top)
     mode:bind({}, '-', win_move.prev_screen)
     mode:bind({}, '=', win_move.next_screen)
+    -- mode:bind({}, 'left', win_move.move_relative(-10, 0), function() end, win_move.move_relative(-10, 0))
+    -- mode:bind({}, 'right', win_move.move_relative(10, 0), function() end, win_move.move_relative(10, 0))
+    -- mode:bind({}, 'up', win_move.move_relative(0, -10), function() end, win_move.move_relative(0, -10))
+    -- mode:bind({}, 'down', win_move.move_relative(0, 10), function() end, win_move.move_relative(0, 10))
 end
 
 do  -- clipboard history

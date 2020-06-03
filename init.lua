@@ -1,7 +1,7 @@
 -- hammerspoon config
 
 require('luarocks.loader')
-require('modules.mouse'):init('f15')
+require('modules.mouse'):init('f16')
 require('modules.inputsource_aurora')
 
 local inputEnglish = "com.apple.keylayout.ABC"
@@ -11,7 +11,7 @@ local vim_mode = hs.hotkey.modal.new()
 local app_mode = hs.hotkey.modal.new()
 local vimlike = require('modules.vim'):init(vim_mode)
 
-hs.hotkey.bind({}, 'f16', function()
+hs.hotkey.bind({}, 'f18', function()
     local input_source = hs.keycodes.currentSourceID()
     hs.keycodes.currentSourceID(inputEnglish)
     hs.eventtap.keyStroke({}, '`')
@@ -124,7 +124,6 @@ do  -- app manager
     -- mode:bind({'shift'}, 'tab', app_man.focusPreviousScreen)
     -- mode:bind({}, 'tab', app_man.focusNextScreen)
 
-    hs.hotkey.bind({}, 'f18', function() hs.eventtap.keyStroke({'command', 'shift'}, 'space') end)
     mode:bind({}, 'tab', hs.hints.windowHints)
     hs.hints.hintChars = {
         'q', 'w', 'e', 'r',

@@ -11,6 +11,10 @@ local flag = {
     down  = 0
 }
 
+local mode = {
+    triggered = false
+}
+
 local keySetDefault = {
     up    = 'E',
     left  = 'S',
@@ -44,27 +48,32 @@ function obj:init(key)
     local mouse_move_up = function(dist)
         return function()
             flag.up = dist
+            mode.triggered = true
         end
     end
     local mouse_move_down = function(dist)
         return function()
             flag.down = dist
+            mode.triggered = true
         end
     end
     local mouse_move_left = function(dist)
         return function()
             flag.left = dist
+            mode.triggered = true
         end
     end
     local mouse_move_right = function(dist)
         return function()
             flag.right = dist
+            mode.triggered = true
         end
     end
 
     local mouse_move = function(dir, dist)
         return function()
             flag[dir] = dist
+            mode.triggered = true
         end
     end
 
@@ -73,11 +82,6 @@ function obj:init(key)
             flag[dir] = 0
         end
     end
-
-    mouse_mode:bind({}, 'e', mm(mouse_move_up(1)), mm(mouse_move_up(0)), nil)
-    mouse_mode:bind({}, 's', mm(mouse_move_left(1)), mm(mouse_move_left(0)), nil)
-    mouse_mode:bind({}, 'd', mm(mouse_move_down(1)), mm(mouse_move_down(0)), nil)
-    mouse_mode:bind({}, 'f', mm(mouse_move_right(1)), mm(mouse_move_right(0)), nil)
 
     mouse_mode:bind({}, ',', function() flag.dist = 1 end, function() flag.dist = 10 end, nil)
     mouse_mode:bind({}, '.', function() flag.dist = 1 end, function() flag.dist = 10 end, nil)
@@ -108,17 +112,31 @@ function obj:init(key)
         hs.mouse.setAbsolutePosition(pt)
     end)
 
-    mouse_mode:bind({}, 'm', mouse_click_left, nil, mouse_click_left)
-    mouse_mode:bind({}, ',', mouse_click_right, nil, mouse_click_right)
-    mouse_mode:bind({}, 'k', mouse_wheel_up, nil, mouse_wheel_up)
-    mouse_mode:bind({}, 'j', mouse_wheel_down, nil, mouse_wheel_down)
+    mouse_mode:bind({}, 'e', mm(mouse_move_up(1)), mm(mouse_move_up(0)), nil)
+    mouse_mode:bind({}, 's', mm(mouse_move_left(1)), mm(mouse_move_left(0)), nil)
+    mouse_mode:bind({}, 'd', mm(mouse_move_down(1)), mm(mouse_move_down(0)), nil)
+    mouse_mode:bind({}, 'f', mm(mouse_move_right(1)), mm(mouse_move_right(0)), nil)
 
-    mouse_mode:bind({'shift'}, 'k', mouse_wheel_up_slow, nil, mouse_wheel_up_slow)
-    mouse_mode:bind({'shift'}, 'j', mouse_wheel_down_slow, nil, mouse_wheel_down_slow)
+    mouse_mode:bind({'shift'}, 'e', mm(mouse_move_up(0.2)), mm(mouse_move_up(0)), nil)
+    mouse_mode:bind({'shift'}, 's', mm(mouse_move_left(0.2)), mm(mouse_move_left(0)), nil)
+    mouse_mode:bind({'shift'}, 'd', mm(mouse_move_down(0.2)), mm(mouse_move_down(0)), nil)
+    mouse_mode:bind({'shift'}, 'f', mm(mouse_move_right(0.2)), mm(mouse_move_right(0)), nil)
+
+    mouse_mode:bind({}, 'w', mouse_click_left, nil, mouse_click_left)
+    mouse_mode:bind({}, 'r', mouse_click_right, nil, mouse_click_right)
+    mouse_mode:bind({}, 'q', mouse_wheel_up, nil, mouse_wheel_up)
+    mouse_mode:bind({}, 'a', mouse_wheel_down, nil, mouse_wheel_down)
+
+    mouse_mode:bind({'shift'}, 'w', mouse_click_left, nil, mouse_click_left)
+    mouse_mode:bind({'shift'}, 'r', mouse_click_right, nil, mouse_click_right)
+    mouse_mode:bind({'shift'}, 'q', mouse_wheel_up_slow, nil, mouse_wheel_up)
+    mouse_mode:bind({'shift'}, 'a', mouse_wheel_down_slow, nil, mouse_wheel_down)
+
     mouse_mode:bind({}, 'Z', mouse_center)
     mouse_mode:bind({'shift'}, 'Z', mouse_screen_center)
 
     local on_mouse_mode = function()
+        mode.triggered = false
         mouse_mode.triggered = false
         mouse_mode:enter()
 
@@ -140,6 +158,10 @@ function obj:init(key)
     local off_mouse_mode = function()
         flag.move = false
         mouse_mode:exit()
+
+        if not mode.triggered then
+            hs.eventtap.keyStroke({}, 'f14')
+        end
     end
 
     hs.hotkey.bind({}, key, on_mouse_mode, off_mouse_mode)

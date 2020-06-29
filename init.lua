@@ -97,7 +97,8 @@ do  -- app manager
     -- mode:bind({}, 'i', app_man:toggle('PhpStorm'))
     mode:bind({}, 'l', app_man:toggle('Line'))
     mode:bind({}, 'q', app_man:toggle('Sequel Pro'))
-    mode:bind({}, 'v', app_man:toggle('VimR'))
+    -- mode:bind({}, 'v', app_man:toggle('VimR'))
+    mode:bind({}, 'v', app_man:toggle('Visual Studio Code'))
     -- mode:bind({}, 'v', app_man:toggle('MacVim'))
     mode:bind({}, 'n', app_man:toggle('Notes'))
     mode:bind({}, 's', app_man:toggle('Slack'))
@@ -118,7 +119,8 @@ do  -- app manager
     -- mode:bind({'shift'}, 'space', app_man:toggle('Alacritty'))
     -- mode:bind({}, 'space', app_man:toggle('iTerm'))
     mode:bind({}, ',', app_man:toggle('System Preferences'))
-    mode:bind({}, 'z', function() hs.eventtap.keyStroke({'command', 'shift'}, 'space') end)
+    mode:bind({}, 'z', app_man:toggle('zoom.us'))
+    mode:bind({}, 'd', app_man:toggle('Discord'))
 
 
     -- mode:bind({'shift'}, 'tab', app_man.focusPreviousScreen)

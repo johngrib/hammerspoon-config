@@ -101,6 +101,7 @@ do  -- app manager
     mode:bind({}, 'v', app_man:toggle('Visual Studio Code'))
     -- mode:bind({}, 'v', app_man:toggle('MacVim'))
     mode:bind({}, 'n', app_man:toggle('Notes'))
+    mode:bind({}, 'm', app_man:toggle('NoSQLBooster for MongoDB'))
     mode:bind({}, 's', app_man:toggle('Slack'))
     mode:bind({}, 'f', app_man:toggle('Firefox'))
     mode:bind({}, 'e', app_man:toggle('Finder'))

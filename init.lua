@@ -1,9 +1,7 @@
 -- hammerspoon config
 
-require('luarocks.loader')
+-- require('luarocks.loader')
 require('modules.mouse'):init('f16')
-require('modules.inputsource_aurora')
-
 local inputEnglish = "com.apple.keylayout.ABC"
 local inputKorean = "org.youknowone.inputmethod.Gureum.han2"
 
@@ -97,6 +95,7 @@ do  -- app manager
     -- mode:bind({}, 'i', app_man:toggle('PhpStorm'))
     mode:bind({}, 'l', app_man:toggle('Line'))
     mode:bind({}, 'q', app_man:toggle('Sequel Pro'))
+    mode:bind({}, 'b', app_man:toggle('DBeaver'))
     -- mode:bind({}, 'v', app_man:toggle('VimR'))
     mode:bind({}, 'v', app_man:toggle('Visual Studio Code'))
     -- mode:bind({}, 'v', app_man:toggle('MacVim'))
@@ -109,6 +108,7 @@ do  -- app manager
     -- mode:bind({}, 'e', app_man:toggle('SpringToolSuite4'))
     -- mode:bind({}, 'x', app_man:toggle('Microsoft Excel'))
     -- mode:bind({}, 'w', app_man:toggle('Microsoft Word'))
+    mode:bind({}, 'o', app_man:toggle('Microsoft OneNote'))
     mode:bind({}, 'p', app_man:toggle('Preview'))
     mode:bind({}, 'a', app_man:toggle('Safari'))
     mode:bind({}, 't', app_man:toggle('Telegram'))
@@ -191,6 +191,7 @@ end
 
 
 require('modules.Caffeine'):init(spoon)
+require('modules.inputsource_aurora')
 
 hs.alert.show('loaded')
 

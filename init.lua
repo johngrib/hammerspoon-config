@@ -98,7 +98,7 @@ do  -- app manager
     -- mode:bind({}, 'space', app_man:toggle('Alacritty'))
     -- mode:bind({}, 'space', app_man:toggle('iTerm'))
     -- mode:bind({}, 'v', app_man:toggle('MacVim'))
-    -- mode:bind({}, 'v', app_man:toggle('VimR'))
+    mode:bind({}, 'v', app_man:toggle('VimR'))
     -- mode:bind({}, 'v', app_man:toggle('Visual Studio Code'))
     -- mode:bind({}, 'w', app_man:toggle('Microsoft Word'))
     mode:bind({}, ',', app_man:toggle('System Preferences'))

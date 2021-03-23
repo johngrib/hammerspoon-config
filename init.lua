@@ -98,15 +98,14 @@ do  -- app manager
     -- mode:bind({}, 'space', app_man:toggle('Alacritty'))
     -- mode:bind({}, 'space', app_man:toggle('iTerm'))
     -- mode:bind({}, 'v', app_man:toggle('MacVim'))
-    mode:bind({}, 'v', app_man:toggle('VimR'))
-    -- mode:bind({}, 'v', app_man:toggle('Visual Studio Code'))
     -- mode:bind({}, 'w', app_man:toggle('Microsoft Word'))
+
     mode:bind({}, ',', app_man:toggle('System Preferences'))
     mode:bind({}, 'a', app_man:toggle('safari'))
     mode:bind({}, 'b', app_man:toggle('DBeaver'))
     mode:bind({}, 'c', app_man:toggle('Google Chrome'))
-    mode:bind({'option'}, 'd', app_man:toggle('Discord'))
     mode:bind({}, 'd', app_man:toggle('dictionary'))
+    mode:bind({'option'}, 'd', app_man:toggle('Discord'))
     mode:bind({}, 'e', app_man:toggle('Finder'))
     mode:bind({}, 'f', app_man:toggle('Firefox'))
     mode:bind({}, 'i', app_man:toggle('IntelliJ IDEA'))
@@ -121,7 +120,10 @@ do  -- app manager
     mode:bind({}, 's', app_man:toggle('Slack'))
     mode:bind({}, 'space', app_man:toggle('Terminal'))
     mode:bind({}, 't', app_man:toggle('Telegram'))
+    mode:bind({}, 'v', app_man:toggle('VimR'))
+    mode:bind({'option'}, 'v', app_man:toggle('Visual Studio Code'))
     mode:bind({}, 'x', app_man:toggle('Microsoft Excel'))
+    mode:bind({}, 'y', app_man:toggle('YES24 eBook'))
     mode:bind({}, 'z', app_man:toggle('zoom.us'))
 
 

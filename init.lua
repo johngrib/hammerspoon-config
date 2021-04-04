@@ -69,6 +69,10 @@ do  -- f13 (tab move)
         left = { mod = {'command', 'shift'}, key = '[' },
         right = { mod = {'command', 'shift'}, key = ']' }
     }
+    tabTable['Code'] = {
+        left = { mod = {'command', 'shift'}, key = '[' },
+        right = { mod = {'command', 'shift'}, key = ']' }
+    }
     tabTable['_else_'] = {
         left = { mod = {'control'}, key = 'pageup' },
         right = { mod = {'control'}, key = 'pagedown' }

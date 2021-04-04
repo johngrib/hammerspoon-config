@@ -102,7 +102,6 @@ do  -- app manager
     -- mode:bind({}, 'space', app_man:toggle('Alacritty'))
     -- mode:bind({}, 'space', app_man:toggle('iTerm'))
     -- mode:bind({}, 'v', app_man:toggle('MacVim'))
-    -- mode:bind({}, 'w', app_man:toggle('Microsoft Word'))
 
     mode:bind({}, ',', app_man:toggle('System Preferences'))
     mode:bind({}, 'a', app_man:toggle('safari'))
@@ -126,6 +125,7 @@ do  -- app manager
     mode:bind({}, 't', app_man:toggle('Telegram'))
     mode:bind({}, 'v', app_man:toggle('VimR'))
     mode:bind({'option'}, 'v', app_man:toggle('Visual Studio Code'))
+    mode:bind({}, 'w', app_man:toggle('Microsoft Word'))
     mode:bind({}, 'x', app_man:toggle('Microsoft Excel'))
     mode:bind({}, 'y', app_man:toggle('YES24 eBook'))
     mode:bind({}, 'z', app_man:toggle('zoom.us'))

@@ -13,6 +13,11 @@ local mode = {
     triggered = false,
 }
 
+local mouse_center = function()
+    local screen = hs.window.focusedWindow():frame()
+    local pt = hs.geometry.rectMidPoint(screen)
+    hs.mouse.setAbsolutePosition(pt)
+end
 
 function obj:init(mode)
 
@@ -29,6 +34,7 @@ function obj:init(mode)
         { mod={} , key='j' , func=rapidKey({} , 'down')  , repetition=true } ,
         { mod={} , key='k' , func=rapidKey({} , 'up')    , repetition=true } ,
         { mod={} , key='l' , func=rapidKey({} , 'right') , repetition=true } ,
+        { mod={} , key='z' , func=mouse_center, repetition=false } ,
 
     }, function(v)
         if v.repetition then

@@ -14,7 +14,7 @@ local function move_win(xx, yy, ww, hh)
         f.y = max.y + max.h * yy
         f.w = max.w * ww
         f.h = max.h * hh
-        win:setFrame(f, 0.08)
+        win:setFrame(f, 0)
     end
 end
 
@@ -25,25 +25,25 @@ local function move_win_relative(xx, yy)
         local max = win:screen():frame()
         f.x = f.x + xx
         f.y = f.y + yy
-        win:setFrame(f, 0.08)
+        win:setFrame(f, 0)
     end
 end
 
 local function send_window_prev_screen()
     local win = hs.window.focusedWindow()
     local nextScreen = win:screen():previous()
-    win:moveToScreen(nextScreen)
+    win:moveToScreen(nextScreen, 0)
 end
 
 local function send_window_next_screen()
     local win = hs.window.focusedWindow()
     local nextScreen = win:screen():next()
-    win:moveToScreen(nextScreen)
+    win:moveToScreen(nextScreen, 0)
 end
 
 local function maximize()
     local win = hs.window.focusedWindow()
-    win:maximize()
+    win:maximize(0.01)
 end
 
 return {

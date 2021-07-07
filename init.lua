@@ -122,6 +122,7 @@ do  -- app manager
     mode:bind({}, 'r', app_man:toggle('Trello'))
     mode:bind({}, 's', app_man:toggle('Slack'))
     mode:bind({}, 'space', app_man:toggle('Terminal'))
+    -- mode:bind({}, 'space', app_man:toggle('iTerm'))
     mode:bind({}, 't', app_man:toggle('Telegram'))
     mode:bind({}, 'v', app_man:toggle('VimR'))
     mode:bind({'option'}, 'v', app_man:toggle('Visual Studio Code'))

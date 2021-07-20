@@ -111,6 +111,7 @@ do  -- app manager
     mode:bind({'option'}, 'd', app_man:toggle('Discord'))
     mode:bind({}, 'e', app_man:toggle('Finder'))
     mode:bind({}, 'f', app_man:toggle('Firefox'))
+    mode:bind({}, 'g', app_man:toggle('DataGrip'))
     mode:bind({}, 'i', app_man:toggle('IntelliJ IDEA'))
     mode:bind({}, 'k', app_man:toggle('KakaoTalk'))
     mode:bind({}, 'l', app_man:toggle('Line'))

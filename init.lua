@@ -1,7 +1,7 @@
 -- hammerspoon config
 
 -- require('luarocks.loader')
-require('modules.mouse'):init('f16')
+-- require('modules.mouse'):init('f16')
 local inputEnglish = "com.apple.keylayout.ABC"
 local inputKorean = "org.youknowone.inputmethod.Gureum.han2"
 
@@ -24,21 +24,26 @@ hs.hotkey.bind({}, 'f19', function()
     hs.mouse.setAbsolutePosition(pt)
 end)
 
-do  -- f13 (vimlike)
-    hs.hotkey.bind({}, 'f13', vimlike.on, vimlike.off)
-    hs.hotkey.bind({'cmd'}, 'f13', vimlike.on, vimlike.off)
-    hs.hotkey.bind({'shift'}, 'f13', vimlike.on, vimlike.off)
+function setVimlikeKey(keyCode)
+    local vimlikeKey = keyCode
+    hs.hotkey.bind({}, vimlikeKey, vimlike.on, vimlike.off)
+    hs.hotkey.bind({'cmd'}, vimlikeKey, vimlike.on, vimlike.off)
+    hs.hotkey.bind({'shift'}, vimlikeKey, vimlike.on, vimlike.off)
+
     vim_mode:bind({}, 'q', hs.caffeinate.systemSleep, vimlike.close)
-
     vim_mode:bind({'shift'}, 'r', hs.reload, vimlike.close)
-
     vim_mode:bind({}, 'a', function()
         local activeAppName = hs.application.frontmostApplication():name()
         hs.alert.show(activeAppName)
     end, vimlike.close)
 end
 
-do  -- f13 (tab move)
+do  -- vimlike
+    setVimlikeKey('f13')
+    setVimlikeKey('f16')
+end
+
+do  -- tab move
     local tabTable = {}
 
     tabTable['Slack'] = {

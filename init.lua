@@ -9,13 +9,6 @@ local vim_mode = hs.hotkey.modal.new()
 local app_mode = hs.hotkey.modal.new()
 local vimlike = require('modules.vim'):init(vim_mode)
 
-hs.hotkey.bind({}, 'f18', function()
-    local input_source = hs.keycodes.currentSourceID()
-    hs.keycodes.currentSourceID(inputEnglish)
-    hs.eventtap.keyStroke({}, '`')
-    hs.keycodes.currentSourceID(input_source)
-end)
-
 hs.hotkey.bind({}, 'f17', function() app_mode:enter() end, function() app_mode:exit() end)
 
 hs.hotkey.bind({}, 'f19', function()
@@ -23,6 +16,8 @@ hs.hotkey.bind({}, 'f19', function()
     local pt = hs.geometry.rectMidPoint(screen:fullFrame())
     hs.mouse.setAbsolutePosition(pt)
 end)
+
+-- hs.hotkey.bind({}, 'f14', function() end) -- for maccy
 
 function setVimlikeKey(keyCode)
     local vimlikeKey = keyCode
@@ -185,13 +180,6 @@ do  -- winmove
     -- mode:bind({}, 'right', win_move.move_relative(10, 0), function() end, win_move.move_relative(10, 0))
     -- mode:bind({}, 'up', win_move.move_relative(0, -10), function() end, win_move.move_relative(0, -10))
     -- mode:bind({}, 'down', win_move.move_relative(0, 10), function() end, win_move.move_relative(0, 10))
-end
-
-do  -- clipboard history
-    local clipboard = require('modules.clipboard')
-    clipboard.setSize(10)
-    app_mode:bind({}, '`', clipboard.showList)
-    app_mode:bind({'shift'}, '`', clipboard.clear)
 end
 
 -- spoon plugins

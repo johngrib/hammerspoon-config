@@ -78,6 +78,10 @@ do  -- tab move
         left = { mod = {'command', 'shift'}, key = '[' },
         right = { mod = {'command', 'shift'}, key = ']' }
     }
+    tabTable['DataGrip'] = {
+        left = { mod = {'command', 'shift'}, key = '[' },
+        right = { mod = {'command', 'shift'}, key = ']' }
+    }
     tabTable['_else_'] = {
         left = { mod = {'control'}, key = 'pageup' },
         right = { mod = {'control'}, key = 'pagedown' }

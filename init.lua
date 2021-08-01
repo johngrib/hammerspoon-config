@@ -17,7 +17,12 @@ hs.hotkey.bind({}, 'f19', function()
     hs.mouse.setAbsolutePosition(pt)
 end)
 
--- hs.hotkey.bind({}, 'f14', function() end) -- for maccy
+local maccy = function()
+    -- maccy 는 단축키 조합에 f1 ~ f20 이 들어가면 인식을 못한다.
+    hs.eventtap.keyStroke({'command', 'shift', 'option', 'control'}, 'c')
+end
+
+hs.hotkey.bind({}, 'f14', maccy) -- for maccy
 
 function setVimlikeKey(keyCode)
     local vimlikeKey = keyCode
@@ -31,6 +36,8 @@ function setVimlikeKey(keyCode)
         local activeAppName = hs.application.frontmostApplication():name()
         hs.alert.show(activeAppName)
     end, vimlike.close)
+
+    vim_mode:bind({}, 'c', maccy, vimlike.close)
 end
 
 do  -- vimlike
@@ -133,7 +140,6 @@ do  -- app manager
     mode:bind({'option'}, 'v', app_man:toggle('Visual Studio Code'))
     mode:bind({}, 'w', app_man:toggle('Microsoft Word'))
     mode:bind({}, 'x', app_man:toggle('Microsoft Excel'))
-    mode:bind({}, 'y', app_man:toggle('YES24 eBook'))
     mode:bind({}, 'z', app_man:toggle('zoom.us'))
 
 

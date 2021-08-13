@@ -1,7 +1,7 @@
 -- hammerspoon config
 
 -- require('luarocks.loader')
--- require('modules.mouse'):init('f16')
+require('modules.mouse'):init('f16')
 local inputEnglish = "com.apple.keylayout.ABC"
 local inputKorean = "org.youknowone.inputmethod.Gureum.han2"
 
@@ -42,7 +42,7 @@ end
 
 do  -- vimlike
     setVimlikeKey('f13')
-    setVimlikeKey('f16')
+    -- setVimlikeKey('f16')
 end
 
 do  -- tab move
@@ -131,7 +131,8 @@ do  -- app manager
     mode:bind({}, 'o', app_man:toggle('Microsoft OneNote'))
     mode:bind({}, 'p', app_man:toggle('Preview'))
     mode:bind({}, 'q', app_man:toggle('Sequel Pro'))
-    mode:bind({}, 'r', app_man:toggle('Trello'))
+    -- mode:bind({}, 'r', app_man:toggle('Trello'))
+    mode:bind({}, 'r', app_man:toggle('draw.io'))
     mode:bind({}, 's', app_man:toggle('Slack'))
     mode:bind({}, 'space', app_man:toggle('Terminal'))
     -- mode:bind({}, 'space', app_man:toggle('iTerm'))

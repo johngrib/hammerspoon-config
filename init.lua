@@ -1,7 +1,7 @@
 -- hammerspoon config
 
 -- require('luarocks.loader')
-require('modules.mouse'):init('f16')
+-- require('modules.mouse'):init('f16')
 local inputEnglish = "com.apple.keylayout.ABC"
 local inputKorean = "org.youknowone.inputmethod.Gureum.han2"
 
@@ -207,4 +207,99 @@ require('modules.Caffeine'):init(spoon)
 require('modules.inputsource_aurora')
 
 hs.alert.show('loaded')
+
+local touch_mode = hs.hotkey.modal.new()
+
+touch_time = hs.timer.secondsSinceEpoch()
+
+function touch_delay(func)
+    return function()
+        touch_time = hs.timer.secondsSinceEpoch()
+        return func()
+    end
+end
+
+myTap = hs.eventtap.new( { hs.eventtap.event.types.gesture }, function(e)
+    local gestureType = e:getType(true)
+    if not (gestureType == 29) then
+        return
+    end
+
+    local now = hs.timer.secondsSinceEpoch()
+    if now - touch_time < 0.5 then
+        return
+    end
+    touch_time = hs.timer.secondsSinceEpoch()
+
+    touch_mode:enter()
+
+    hs.timer.delayed.new(0.5, function()
+        local now = hs.timer.secondsSinceEpoch()
+        local diff = now - touch_time
+        if diff > 0.3 then
+            touch_mode:exit()
+            print('mode exit ' .. diff)
+        end
+    end):start()
+end)
+
+myTap:start()
+
+touch_mode:bind({}, 'q', touch_delay(function()
+    -- local screen = hs.window.focusedWindow():frame()
+    -- hs.mouse.absolutePosition({ x = screen.x, y = screen.y })
+    local pos = hs.mouse.absolutePosition()
+    hs.mouse.absolutePosition({ x = pos.x - 300, y = pos.y - 300 })
+    return false
+end))
+
+touch_mode:bind({}, 'w', touch_delay(function()
+    -- local screen = hs.window.focusedWindow():frame()
+    -- hs.mouse.absolutePosition({ x = screen.x + screen.w / 2, y = screen.y })
+    local pos = hs.mouse.absolutePosition()
+    hs.mouse.absolutePosition({ x = pos.x, y = pos.y - 500 })
+    return true
+end))
+
+touch_mode:bind({}, 'e', touch_delay(function()
+    local screen = hs.window.focusedWindow():frame()
+    hs.mouse.absolutePosition({ x = screen.x + screen.w, y = screen.y })
+    return true
+end))
+
+touch_mode:bind({}, 'a', touch_delay(function()
+    local screen = hs.window.focusedWindow():frame()
+    hs.mouse.absolutePosition({ x = screen.x, y = screen.y + screen.h / 2 })
+    return true
+end))
+
+touch_mode:bind({}, 's', touch_delay(function()
+    local screen = hs.window.focusedWindow():frame()
+    hs.mouse.absolutePosition(hs.geometry.rectMidPoint(screen))
+    return true
+end))
+
+touch_mode:bind({}, 'd', touch_delay(function()
+    local screen = hs.window.focusedWindow():frame()
+    hs.mouse.absolutePosition({ x = screen.x + screen.w, y = screen.y + screen.h / 2 })
+    return true
+end))
+
+touch_mode:bind({}, 'z', touch_delay(function()
+    local screen = hs.window.focusedWindow():frame()
+    hs.mouse.absolutePosition({ x = screen.x, y = screen.y + screen.h })
+    return true
+end))
+
+touch_mode:bind({}, 'x', touch_delay(function()
+    local screen = hs.window.focusedWindow():frame()
+    hs.mouse.absolutePosition({ x = screen.x + screen.w / 2, y = screen.y + screen.h })
+    return true
+end))
+
+touch_mode:bind({}, 'c', touch_delay(function()
+    local screen = hs.window.focusedWindow():frame()
+    hs.mouse.absolutePosition({ x = screen.x + screen.w, y = screen.y + screen.h })
+    return true
+end))
 

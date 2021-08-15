@@ -16,12 +16,12 @@ local mode = {
 }
 
 local keySetDefault = {
-    up    = 'E',
-    left  = 'S',
-    down  = 'D',
-    right = 'F',
-    leftClick  = 'M',
-    rightClick = ',',
+    up    = 'up',
+    left  = 'left',
+    down  = 'down',
+    right = 'right',
+    leftClick  = "'",
+    rightClick = 'enter',
     scrollUp   = 'K',
     scrollDown = 'J'
 }
@@ -112,15 +112,15 @@ function obj:init(key)
         hs.mouse.setAbsolutePosition(pt)
     end)
 
-    mouse_mode:bind({}, 'e', mm(mouse_move_up(1)), mm(mouse_move_up(0)), nil)
-    mouse_mode:bind({}, 's', mm(mouse_move_left(1)), mm(mouse_move_left(0)), nil)
-    mouse_mode:bind({}, 'd', mm(mouse_move_down(1)), mm(mouse_move_down(0)), nil)
-    mouse_mode:bind({}, 'f', mm(mouse_move_right(1)), mm(mouse_move_right(0)), nil)
+    mouse_mode:bind({}, keySetDefault.up, mm(mouse_move_up(1)), mm(mouse_move_up(0)), nil)
+    mouse_mode:bind({}, keySetDefault.left, mm(mouse_move_left(1)), mm(mouse_move_left(0)), nil)
+    mouse_mode:bind({}, keySetDefault.down, mm(mouse_move_down(1)), mm(mouse_move_down(0)), nil)
+    mouse_mode:bind({}, keySetDefault.right, mm(mouse_move_right(1)), mm(mouse_move_right(0)), nil)
 
-    mouse_mode:bind({'shift'}, 'e', mm(mouse_move_up(0.2)), mm(mouse_move_up(0)), nil)
-    mouse_mode:bind({'shift'}, 's', mm(mouse_move_left(0.2)), mm(mouse_move_left(0)), nil)
-    mouse_mode:bind({'shift'}, 'd', mm(mouse_move_down(0.2)), mm(mouse_move_down(0)), nil)
-    mouse_mode:bind({'shift'}, 'f', mm(mouse_move_right(0.2)), mm(mouse_move_right(0)), nil)
+    mouse_mode:bind({'shift'}, keySetDefault.up, mm(mouse_move_up(0.2)), mm(mouse_move_up(0)), nil)
+    mouse_mode:bind({'shift'}, keySetDefault.left, mm(mouse_move_left(0.2)), mm(mouse_move_left(0)), nil)
+    mouse_mode:bind({'shift'}, keySetDefault.down, mm(mouse_move_down(0.2)), mm(mouse_move_down(0)), nil)
+    mouse_mode:bind({'shift'}, keySetDefault.right, mm(mouse_move_right(0.2)), mm(mouse_move_right(0)), nil)
 
     mouse_mode:bind({}, 'w', mouse_click_left, nil, mouse_click_left)
     mouse_mode:bind({}, 'r', mouse_click_right, nil, mouse_click_right)

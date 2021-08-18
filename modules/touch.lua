@@ -6,7 +6,8 @@ end)
 
 do -- touch + e
     local edgeTable = {}
-    edgeTable['Slack'] = { x = -35, y = 55, click = true }
+    edgeTable['Slack'] = { x = -35, y = 55, click = false }
+    edgeTable['Microsoft Excel'] = { x = -50, y = 170, click = false }
     edgeTable['Google Chrome'] = { x = -245, y = 60, click = false }
     edgeTable['_else_'] = { x = -30, y = 30, click = false }
 

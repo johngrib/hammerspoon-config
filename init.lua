@@ -11,18 +11,12 @@ local vimlike = require('modules.vim'):init(vim_mode)
 
 hs.hotkey.bind({}, 'f17', function() app_mode:enter() end, function() app_mode:exit() end)
 
-hs.hotkey.bind({}, 'f19', function()
-    local screen = hs.window.focusedWindow():screen()
-    local pt = hs.geometry.rectMidPoint(screen:fullFrame())
-    hs.mouse.setAbsolutePosition(pt)
-end)
-
 local maccy = function()
     -- maccy 는 단축키 조합에 f1 ~ f20 이 들어가면 인식을 못한다.
     hs.eventtap.keyStroke({'command', 'shift', 'option', 'control'}, 'c')
 end
 
-hs.hotkey.bind({}, 'f14', maccy) -- for maccy
+hs.hotkey.bind({'shift'}, 'f14', maccy) -- for maccy
 
 function setVimlikeKey(keyCode)
     local vimlikeKey = keyCode
@@ -115,11 +109,12 @@ do  -- app manager
     -- mode:bind({}, 'v', app_man:toggle('MacVim'))
 
     mode:bind({}, ',', app_man:toggle('System Preferences'))
+    mode:bind({}, '/', app_man:toggle('Activity Monitor'))
     mode:bind({}, 'a', app_man:toggle('safari'))
-    mode:bind({}, 'b', app_man:toggle('DBeaver'))
+    -- mode:bind({}, 'b', app_man:toggle('DBeaver'))
     mode:bind({}, 'c', app_man:toggle('Google Chrome'))
     mode:bind({}, 'd', app_man:toggle('dictionary'))
-    mode:bind({'option'}, 'd', app_man:toggle('Discord'))
+    -- mode:bind({'option'}, 'd', app_man:toggle('Discord'))
     mode:bind({}, 'e', app_man:toggle('Finder'))
     mode:bind({}, 'f', app_man:toggle('Firefox'))
     mode:bind({}, 'g', app_man:toggle('DataGrip'))
@@ -137,9 +132,9 @@ do  -- app manager
     mode:bind({}, 'space', app_man:toggle('Terminal'))
     -- mode:bind({}, 'space', app_man:toggle('iTerm'))
     mode:bind({}, 't', app_man:toggle('Telegram'))
-    mode:bind({}, 'v', app_man:toggle('VimR'))
+    -- mode:bind({}, 'v', app_man:toggle('VimR'))
     mode:bind({'option'}, 'v', app_man:toggle('Visual Studio Code'))
-    mode:bind({}, 'w', app_man:toggle('Microsoft Word'))
+    -- mode:bind({}, 'w', app_man:toggle('Microsoft Word'))
     mode:bind({}, 'x', app_man:toggle('Microsoft Excel'))
     mode:bind({}, 'z', app_man:toggle('zoom.us'))
 

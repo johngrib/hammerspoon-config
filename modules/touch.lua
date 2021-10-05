@@ -60,3 +60,19 @@ do -- touch + w
     end)
 end
 
+do -- touch + c
+    local edgeTable = {}
+    edgeTable['_else_'] = { x = -30, y = -30, click = false }
+
+    hs.urlevent.bind("mouse-move-c", function(eventName, params)
+        local activeAppName = hs.application.frontmostApplication():name()
+        local edgeMove = edgeTable[activeAppName] or edgeTable['_else_']
+
+        local screen = hs.window.focusedWindow():frame()
+        hs.mouse.absolutePosition({ x = screen.x + screen.w + edgeMove['x'], y = screen.y + screen.h + edgeMove['y'] })
+
+        if edgeMove['click'] then
+            hs.eventtap.leftClick(hs.mouse.getAbsolutePosition())
+        end
+    end)
+end

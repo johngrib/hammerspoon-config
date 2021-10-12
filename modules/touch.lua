@@ -76,3 +76,21 @@ do -- touch + c
         end
     end)
 end
+
+do -- touch + z
+    local edgeTable = {}
+    edgeTable['Slack'] = { x = 130, y = -30, click = false }
+    edgeTable['_else_'] = { x = -30, y = -30, click = false }
+
+    hs.urlevent.bind("mouse-move-z", function(eventName, params)
+        local activeAppName = hs.application.frontmostApplication():name()
+        local edgeMove = edgeTable[activeAppName] or edgeTable['_else_']
+
+        local screen = hs.window.focusedWindow():frame()
+        hs.mouse.absolutePosition({ x = screen.x + edgeMove['x'], y = screen.y + screen.h + edgeMove['y'] })
+
+        if edgeMove['click'] then
+            hs.eventtap.leftClick(hs.mouse.getAbsolutePosition())
+        end
+    end)
+end

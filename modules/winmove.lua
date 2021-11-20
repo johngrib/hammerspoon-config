@@ -8,6 +8,11 @@ local half_height, full_height = 2, 1
 local function move_win(xx, yy, ww, hh)
     return function()
         local win = hs.window.focusedWindow()
+
+        if win == nil then
+            win = hs.window.frontmostWindow()
+        end
+
         local f = win:frame()
         local max = win:screen():frame()
         f.x = max.x + max.w * xx

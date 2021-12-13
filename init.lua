@@ -87,7 +87,8 @@ do  -- tab move
         return function()
             local activeAppName = hs.application.frontmostApplication():name()
             local tab = tabTable[activeAppName] or tabTable['_else_']
-            hs.eventtap.keyStroke(tab[dir]['mod'], tab[dir]['key'])
+            hs.eventtap.event.newKeyEvent(tab[dir]['mod'], tab[dir]['key'], true):post()
+            hs.eventtap.event.newKeyEvent(tab[dir]['mod'], tab[dir]['key'], false):post()
         end
     end
 

@@ -1,10 +1,3 @@
-
-local left, right = 0, 1
-local top, mid = 0, 1
-
-local half_width, full_width = 2, 1
-local half_height, full_height = 2, 1
-
 local function move_win(xx, yy, ww, hh)
     return function()
         local win = hs.window.focusedWindow()
@@ -51,7 +44,7 @@ local function maximize()
     win:maximize(0.01)
 end
 
-return {
+local win_move = {
     ['default']      = move_win(1/4, 0, 1/2, 1),
     ['left_bottom']  = move_win(0, 1/2, 1/2, 1/2),
     ['bottom']       = move_win(0, 1/2, 1, 1/2),
@@ -67,4 +60,20 @@ return {
     ['move']         = move_win,
     ['move_relative'] = move_win_relative,
 }
+
+hs.hotkey.bind({'control', 'option'}, 'c', win_move.default)
+hs.hotkey.bind({'control', 'option'}, 'e', win_move.move(0, 0, 2/3, 1))
+hs.hotkey.bind({'control', 'option'}, 'r', win_move.move(1/6, 0, 4/6, 1))
+hs.hotkey.bind({'control', 'option'}, 't', win_move.move(1/3, 0, 2/3, 1))
+hs.hotkey.bind({'control', 'option'}, 'd', win_move.left)
+hs.hotkey.bind({'control', 'option'}, 'g', win_move.right)
+hs.hotkey.bind({'control', 'option'}, 'u', win_move.left_top)
+hs.hotkey.bind({'control', 'option'}, 'i', win_move.right_top)
+hs.hotkey.bind({'control', 'option'}, 'j', win_move.left_bottom)
+hs.hotkey.bind({'control', 'option'}, 'k', win_move.right_bottom)
+hs.hotkey.bind({'control', 'option'}, 'o', win_move.top)
+hs.hotkey.bind({'control', 'option'}, 'l', win_move.bottom)
+hs.hotkey.bind({'control', 'option'}, ',', win_move.prev_screen)
+hs.hotkey.bind({'control', 'option'}, '.', win_move.next_screen)
+hs.hotkey.bind({'control', 'option'}, 'return', win_move.full_screen)
 

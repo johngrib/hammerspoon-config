@@ -124,6 +124,7 @@ do  -- app manager
     mode:bind({}, 'l', app_man:toggle('Line'))
     mode:bind({}, 'm', app_man:toggle('NoSQLBooster for MongoDB'))
     mode:bind({}, 'n', app_man:toggle('Notes'))
+    mode:bind({'shift'}, 'n', app_man:toggle('Notion'))
     mode:bind({}, 'o', app_man:toggle('Microsoft OneNote'))
     mode:bind({}, 'p', app_man:toggle('Preview'))
     mode:bind({}, 'q', app_man:toggle('Sequel Pro'))

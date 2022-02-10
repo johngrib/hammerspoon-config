@@ -127,6 +127,7 @@ do  -- app manager
     mode:bind({'shift'}, 'n', app_man:toggle('Notion'))
     mode:bind({}, 'o', app_man:toggle('Microsoft OneNote'))
     mode:bind({}, 'p', app_man:toggle('Preview'))
+    mode:bind({}, 'm', app_man:toggle('Postman'))
     mode:bind({}, 'q', app_man:toggle('Sequel Pro'))
     -- mode:bind({}, 'r', app_man:toggle('Trello'))
     mode:bind({}, 'r', app_man:toggle('draw.io'))

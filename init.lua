@@ -5,8 +5,12 @@
 local inputEnglish = "com.apple.keylayout.ABC"
 local inputKorean = "org.youknowone.inputmethod.Gureum.han2"
 
+local win_move = require('modules.winmove')
+local app_man = require('modules.appman')
+
 local vim_mode = hs.hotkey.modal.new()
 local app_mode = hs.hotkey.modal.new()
+
 local vimlike = require('modules.vim'):init(vim_mode)
 
 hs.hotkey.bind({}, 'f17', function() app_mode:enter() end, function() app_mode:exit() end)
@@ -97,7 +101,6 @@ do  -- tab move
 end
 
 do  -- app manager
-    local app_man = require('modules.appman')
     local mode = app_mode
 
     -- mode:bind({'shift'}, 'space', app_man:toggle('Alacritty'))
@@ -162,10 +165,7 @@ do  -- app manager
     end)
 end
 
-do  -- winmove
-    local win_move = require('modules.winmove')
-    local mode = app_mode
-
+function set_win_move(mode)
     mode:bind({}, '0', win_move.default)
     mode:bind({'shift'}, '0', win_move.move(1/6, 0, 4/6, 1))
     mode:bind({}, '1', win_move.left_bottom)
@@ -186,6 +186,9 @@ do  -- winmove
     -- mode:bind({}, 'up', win_move.move_relative(0, -10), function() end, win_move.move_relative(0, -10))
     -- mode:bind({}, 'down', win_move.move_relative(0, 10), function() end, win_move.move_relative(0, 10))
 end
+
+set_win_move(app_mode)
+set_win_move(vim_mode)
 
 -- spoon plugins
 hs.loadSpoon("SpoonInstall")

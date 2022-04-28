@@ -19,16 +19,7 @@ local mouse_center = function()
     hs.mouse.setAbsolutePosition(pt)
 end
 
-function obj:init(mode)
-
-    local function vim_end()
-        mode.triggered = true
-    end
-
-    self.close = vim_end
-
-    vim_icon:setClickCallback(setVimDisplay)
-
+function setDefaultArrows(mode)
     hs.fnutils.each({
         { mod={} , key='h' , func=rapidKey({} , 'left')  , repetition=true } ,
         { mod={} , key='j' , func=rapidKey({} , 'down')  , repetition=true } ,
@@ -43,6 +34,19 @@ function obj:init(mode)
             mode:bind(v.mod, v.key, v.func, vim_end)
         end
     end)
+end
+
+function obj:init(mode)
+
+    local function vim_end()
+        mode.triggered = true
+    end
+
+    self.close = vim_end
+
+    vim_icon:setClickCallback(setVimDisplay)
+
+    setDefaultArrows(mode)
 
     self.on = function()
         mode:enter()

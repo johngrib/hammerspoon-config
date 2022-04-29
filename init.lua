@@ -13,6 +13,8 @@ local app_mode = hs.hotkey.modal.new()
 
 local vimlike = require('modules.vim'):init(vim_mode)
 
+hs.window.animationDuration = 0
+
 hs.hotkey.bind({}, 'f17', function() app_mode:enter() end, function() app_mode:exit() end)
 
 local maccy = function()
@@ -36,6 +38,8 @@ function setVimlikeKey(keyCode)
     end, vimlike.close)
 
     vim_mode:bind({}, 'c', maccy, vimlike.close)
+    vim_mode:bind({}, 'n', app_man:toggle('Notion'), vimlike.close)
+    vim_mode:bind({}, 'm', app_man:toggle('Google Meet'), vimlike.close)
 end
 
 do  -- vimlike
@@ -89,10 +93,12 @@ do  -- tab move
 
     local function tabMove(dir)
         return function()
+            vimlike.close()
             local activeAppName = hs.application.frontmostApplication():name()
             local tab = tabTable[activeAppName] or tabTable['_else_']
             hs.eventtap.event.newKeyEvent(tab[dir]['mod'], tab[dir]['key'], true):post()
             hs.eventtap.event.newKeyEvent(tab[dir]['mod'], tab[dir]['key'], false):post()
+            -- hs.eventtap.keyStroke(tab[dir]['mod'], tab[dir]['key'])
         end
     end
 
@@ -130,7 +136,8 @@ do  -- app manager
     mode:bind({'shift'}, 'n', app_man:toggle('Notion'))
     mode:bind({}, 'o', app_man:toggle('Microsoft OneNote'))
     mode:bind({}, 'p', app_man:toggle('Preview'))
-    mode:bind({}, 'm', app_man:toggle('Postman'))
+    -- mode:bind({}, 'm', app_man:toggle('Postman'))
+    mode:bind({}, 'm', app_man:toggle('Messages'))
     mode:bind({}, 'q', app_man:toggle('Sequel Pro'))
     -- mode:bind({}, 'r', app_man:toggle('Trello'))
     mode:bind({}, 'r', app_man:toggle('draw.io'))
@@ -185,6 +192,19 @@ function set_win_move(mode)
     -- mode:bind({}, 'right', win_move.move_relative(10, 0), function() end, win_move.move_relative(10, 0))
     -- mode:bind({}, 'up', win_move.move_relative(0, -10), function() end, win_move.move_relative(0, -10))
     -- mode:bind({}, 'down', win_move.move_relative(0, 10), function() end, win_move.move_relative(0, 10))
+    mode:bind({}, 'z', function()
+        local win = hs.window.focusedWindow()
+
+        if win == nil then
+            win = hs.window.frontmostWindow()
+        end
+        local screen = win:screen()
+        local cell = hs.grid.get(win, screen)
+
+        print(cell)
+
+        hs.grid.set(win, cell, screen)
+    end)
 end
 
 set_win_move(app_mode)

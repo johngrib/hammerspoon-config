@@ -12,6 +12,7 @@ function obj:toggle(name, secondName)
         local path = string.lower(activated:path())
 
         if string.match(path, string.lower(name) .. '%.app$') or string.match(path, string.lower(secondName) .. '%.app$') then
+            app_mode:exit()
             return activated:hide()
         end
 
@@ -23,6 +24,7 @@ function obj:toggle(name, secondName)
         local pt = hs.geometry.rectMidPoint(screen)
         hs.mouse.setAbsolutePosition(pt)
         app_mode.triggered = true
+        app_mode:exit()
     end
 end
 

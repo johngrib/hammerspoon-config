@@ -40,6 +40,7 @@ function setVimlikeKey(keyCode)
     vim_mode:bind({}, 'c', maccy, vimlike.close)
     vim_mode:bind({}, 'n', app_man:toggle('Notion'), vimlike.close)
     vim_mode:bind({}, 'm', app_man:toggle('Google Meet'), vimlike.close)
+    vim_mode:bind({}, 'd', app_man:toggle('dictionary'), vimlike.close)
 end
 
 do  -- vimlike
@@ -123,7 +124,6 @@ do  -- app manager
     -- mode:bind({}, 'b', app_man:toggle('DBeaver'))
     mode:bind({}, 'c', app_man:toggle('Google Chrome'))
     mode:bind({}, 'd', app_man:toggle('discord'))
-    mode:bind({'shift'}, 'd', app_man:toggle('dictionary'))
     mode:bind({}, 'e', app_man:toggle('Finder'))
     mode:bind({'shift'}, 'e', app_man:toggle('Emacs'))
     mode:bind({}, 'f', app_man:toggle('Firefox'))

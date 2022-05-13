@@ -41,6 +41,7 @@ function setVimlikeKey(keyCode)
     vim_mode:bind({}, 'n', app_man:toggle('Notion'), vimlike.close)
     vim_mode:bind({}, 'm', app_man:toggle('Google Meet'), vimlike.close)
     vim_mode:bind({}, 'd', app_man:toggle('dictionary'), vimlike.close)
+    vim_mode:bind({}, 'p', app_man:toggle('Postman'), vimlike.close)
 end
 
 do  -- vimlike
@@ -136,7 +137,6 @@ do  -- app manager
     mode:bind({'shift'}, 'n', app_man:toggle('Notion'))
     mode:bind({}, 'o', app_man:toggle('Microsoft OneNote'))
     mode:bind({}, 'p', app_man:toggle('Preview'))
-    -- mode:bind({}, 'm', app_man:toggle('Postman'))
     mode:bind({}, 'm', app_man:toggle('Messages'))
     mode:bind({}, 'q', app_man:toggle('Sequel Pro'))
     -- mode:bind({}, 'r', app_man:toggle('Trello'))

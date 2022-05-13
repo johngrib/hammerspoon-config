@@ -1,4 +1,7 @@
 
+-- hs.window.setFrameCorrectness = true
+-- hs.window.animationDuration = 0
+
 local left, right = 0, 1
 local top, mid = 0, 1
 
@@ -15,11 +18,11 @@ local function move_win(xx, yy, ww, hh)
 
         local f = win:frame()
         local max = win:screen():frame()
-        f.x = max.x + max.w * xx
-        f.y = max.y + max.h * yy
-        f.w = max.w * ww
-        f.h = max.h * hh
-        win:setFrame(f, 0)
+
+        win:setFrame({x = max.x + max.w * xx,
+                      y = max.y + max.h * yy,
+                      w = max.w * ww,
+                      h = max.h * hh}, 0)
     end
 end
 
@@ -37,18 +40,30 @@ end
 local function send_window_prev_screen()
     local win = hs.window.focusedWindow()
     local nextScreen = win:screen():previous()
-    win:moveToScreen(nextScreen, 0)
+    win:moveToScreen(nextScreen, true, false, 0)
+    -- win:moveToScreen(nextScreen, 0)
 end
 
 local function send_window_next_screen()
     local win = hs.window.focusedWindow()
     local nextScreen = win:screen():next()
-    win:moveToScreen(nextScreen, 0)
+    win:moveToScreen(nextScreen, true, false, 0)
+    -- win:moveToScreen(nextScreen, 0)
 end
 
 local function maximize()
     local win = hs.window.focusedWindow()
-    win:maximize(0.01)
+    win:maximize()
+end
+
+local function center_window()
+    local win = hs.window.focusedWindow()
+    local f = win:frame()
+    local max = win:screen():frame()
+    f.x = max.x + (max.w - f.w) / 2
+    f.y = max.y + (max.h - f.h) / 2
+    f.h = max.h
+    win:setFrame(f, 0)
 end
 
 return {

@@ -7,12 +7,12 @@ function obj:toggle(name, secondName)
         secondName = '85ED2184-ABF5-4924-AE3F-B702622B858D'
     end
     return function()
+        app_mode:exit()
 
         local activated = hs.application.frontmostApplication()
         local path = string.lower(activated:path())
 
         if string.match(path, string.lower(name) .. '%.app$') or string.match(path, string.lower(secondName) .. '%.app$') then
-            app_mode:exit()
             return activated:hide()
         end
 

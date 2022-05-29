@@ -13,10 +13,13 @@ function obj:toggle(name, secondName)
         local path = string.lower(activated:path())
 
         if string.match(path, string.lower(name) .. '%.app$') or string.match(path, string.lower(secondName) .. '%.app$') then
-            return activated:hide()
+            activated:hide()
+            app_mode:exit()
+            return
         end
 
         if not hs.application.launchOrFocus(name) then
+            app_mode:exit()
             hs.application.launchOrFocus(secondName)
         end
 

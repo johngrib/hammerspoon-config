@@ -104,8 +104,8 @@ do  -- tab move
         end
     end
 
-    vim_mode:bind({}, ',', tabMove('left'), vimlike.close, tabMove('left'))
-    vim_mode:bind({}, '.', tabMove('right'), vimlike.close, tabMove('right'))
+    vim_mode:bind({}, ',', tabMove('left'), vimlike.close, vimlike.close)
+    vim_mode:bind({}, '.', tabMove('right'), vimlike.close, vimlike.close)
 end
 
 do  -- app manager

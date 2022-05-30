@@ -111,49 +111,41 @@ end
 do  -- app manager
     local mode = app_mode
 
-    -- mode:bind({'shift'}, 'space', app_man:toggle('Alacritty'))
-    -- mode:bind({}, 'b', app_man:toggle('Robo 3T'))
-    -- mode:bind({}, 'e', app_man:toggle('SpringToolSuite4'))
-    -- mode:bind({}, 'i', app_man:toggle('PhpStorm'))
-    -- mode:bind({}, 'r', app_man:toggle('Reminders'))
-    -- mode:bind({}, 'space', app_man:toggle('Alacritty'))
-    -- mode:bind({}, 'v', app_man:toggle('MacVim'))
+    local at = {}
+    at['System Preferences'] = { mod = {}, key = ',' }
+    at['Activity Monitor'] = { mod = {}, key = '/' }
+    at['safari'] = { mod = {}, key = 'a' }
+    at['Google Chrome'] = { mod = {}, key = 'c' }
+    at['discord'] = { mod = {}, key = 'd' }
+    at['Finder'] = { mod = {}, key = 'e' }
+    at['Emacs'] = { mod = {'shift'}, key = 'e' }
+    at['Firefox'] = { mod = {}, key = 'f' }
+    at['DataGrip'] = { mod = {}, key = 'g' }
+    at['IntelliJ IDEA'] = { mod = {}, key = 'i' }
+    at['KakaoTalk'] = { mod = {}, key = 'k' }
+    at['Line'] = { mod = {}, key = 'l' }
+    at['NoSQLBooster for MongoDB'] = { mod = {}, key = 'm' }
+    at['Notes'] = { mod = {}, key = 'n' }
+    at['Notion'] = { mod = {'shift'}, key = 'n' }
+    at['Microsoft OneNote'] = { mod = {}, key = 'o' }
+    at['Preview'] = { mod = {}, key = 'p' }
+    at['Messages'] = { mod = {}, key = 'm' }
+    at['Sequel Pro'] = { mod = {}, key = 'q' }
+    at['draw.io'] = { mod = {}, key = 'r' }
+    at['Slack'] = { mod = {}, key = 's' }
+    at['iTerm'] = { mod = {}, key = 'space' }
+    at['Terminal'] = { mod = {'shift'}, key = 'space' }
+    at['Telegram'] = { mod = {}, key = 't' }
+    at['VimR'] = { mod = {}, key = 'v' }
+    at['Visual Studio Code'] = { mod = {'shift'}, key = 'v' }
+    at['Microsoft Excel'] = { mod = {}, key = 'x' }
+    at['zoom.us'] = { mod = {}, key = 'z' }
 
-    mode:bind({}, ',', app_man:toggle('System Preferences'))
-    mode:bind({}, '/', app_man:toggle('Activity Monitor'))
-    mode:bind({}, 'a', app_man:toggle('safari'))
-    -- mode:bind({}, 'b', app_man:toggle('DBeaver'))
-    mode:bind({}, 'c', app_man:toggle('Google Chrome'))
-    mode:bind({}, 'd', app_man:toggle('discord'))
-    mode:bind({}, 'e', app_man:toggle('Finder'))
-    mode:bind({'shift'}, 'e', app_man:toggle('Emacs'))
-    mode:bind({}, 'f', app_man:toggle('Firefox'))
-    mode:bind({}, 'g', app_man:toggle('DataGrip'))
-    mode:bind({}, 'i', app_man:toggle('IntelliJ IDEA'))
-    mode:bind({}, 'k', app_man:toggle('KakaoTalk'))
-    mode:bind({}, 'l', app_man:toggle('Line'))
-    mode:bind({}, 'm', app_man:toggle('NoSQLBooster for MongoDB'))
-    mode:bind({}, 'n', app_man:toggle('Notes'))
-    mode:bind({'shift'}, 'n', app_man:toggle('Notion'))
-    mode:bind({}, 'o', app_man:toggle('Microsoft OneNote'))
-    mode:bind({}, 'p', app_man:toggle('Preview'))
-    mode:bind({}, 'm', app_man:toggle('Messages'))
-    mode:bind({}, 'q', app_man:toggle('Sequel Pro'))
-    -- mode:bind({}, 'r', app_man:toggle('Trello'))
-    mode:bind({}, 'r', app_man:toggle('draw.io'))
-    mode:bind({}, 's', app_man:toggle('Slack'))
-    mode:bind({}, 'space', app_man:toggle('iTerm'))
-    mode:bind({'shift'}, 'space', app_man:toggle('Terminal'))
-    mode:bind({}, 't', app_man:toggle('Telegram'))
-    mode:bind({}, 'v', app_man:toggle('VimR'))
-    mode:bind({'shift'}, 'v', app_man:toggle('Visual Studio Code'))
-    -- mode:bind({}, 'w', app_man:toggle('Microsoft Word'))
-    mode:bind({}, 'x', app_man:toggle('Microsoft Excel'))
-    mode:bind({}, 'z', app_man:toggle('zoom.us'))
-
-
-    -- mode:bind({'shift'}, 'tab', app_man.focusPreviousScreen)
-    -- mode:bind({}, 'tab', app_man.focusNextScreen)
+    for app_name, v in pairs(at) do
+        local mod = at[app_name]['mod']
+        local key = at[app_name]['key']
+        mode:bind(mod, key, app_man:toggle(app_name), function() mode:exit() end)
+    end
 
     mode:bind({}, 'tab', hs.hints.windowHints)
     hs.hints.hintChars = {

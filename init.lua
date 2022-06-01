@@ -15,7 +15,7 @@ local vimlike = require('modules.vim'):init(vim_mode)
 
 hs.window.animationDuration = 0
 
-hs.hotkey.bind({}, 'f17', function() app_mode:enter() end, function() app_mode:exit() end)
+-- hs.hotkey.bind({}, 'f17', function() app_mode:enter() end, function() app_mode:exit() end)
 
 local maccy = function()
     -- maccy 는 단축키 조합에 f1 ~ f20 이 들어가면 인식을 못한다.
@@ -23,6 +23,31 @@ local maccy = function()
 end
 
 hs.hotkey.bind({'shift'}, 'f14', maccy) -- for maccy
+
+function app_toggle(name, secondName)
+    if secondName == nil then
+        -- FIXME: uuid 말고 대책을 마련하라
+        secondName = '85ED2184-ABF5-4924-AE3F-B702622B858D'
+    end
+    return function()
+        local activated = hs.application.frontmostApplication()
+        local path = string.lower(activated:path())
+
+        if string.match(path, string.lower(name) .. '%.app$') or string.match(path, string.lower(secondName) .. '%.app$') then
+            activated:hide()
+            return
+        end
+
+        if not hs.application.launchOrFocus(name) then
+            hs.application.launchOrFocus(secondName)
+        end
+
+        local screen = hs.window.focusedWindow():frame()
+        local pt = hs.geometry.rectMidPoint(screen)
+        hs.mouse.setAbsolutePosition(pt)
+    end
+end
+
 
 function setVimlikeKey(keyCode)
     local vimlikeKey = keyCode
@@ -108,99 +133,60 @@ do  -- tab move
     vim_mode:bind({}, '.', tabMove('right'), vimlike.close, vimlike.close)
 end
 
-do  -- app manager
-    local mode = app_mode
+hs.hints.hintChars = {
+    'q', 'w', 'e', 'r',
+    'a', 's', 'd', 'f',
+    'z', 'x', 'c', 'v',
+    '1', '2', '3', '4',
+    'j', 'k',
+    'i', 'o',
+    'm', ','
+}
 
-    local at = {}
-    at['System Preferences'] = { mod = {}, key = ',' }
-    at['Activity Monitor'] = { mod = {}, key = '/' }
-    at['safari'] = { mod = {}, key = 'a' }
-    at['Google Chrome'] = { mod = {}, key = 'c' }
-    at['discord'] = { mod = {}, key = 'd' }
-    at['Finder'] = { mod = {}, key = 'e' }
-    at['Emacs'] = { mod = {'shift'}, key = 'e' }
-    at['Firefox'] = { mod = {}, key = 'f' }
-    at['DataGrip'] = { mod = {}, key = 'g' }
-    at['IntelliJ IDEA'] = { mod = {}, key = 'i' }
-    at['KakaoTalk'] = { mod = {}, key = 'k' }
-    at['Line'] = { mod = {}, key = 'l' }
-    at['NoSQLBooster for MongoDB'] = { mod = {}, key = 'm' }
-    at['Notes'] = { mod = {}, key = 'n' }
-    at['Notion'] = { mod = {'shift'}, key = 'n' }
-    at['Microsoft OneNote'] = { mod = {}, key = 'o' }
-    at['Preview'] = { mod = {}, key = 'p' }
-    at['Messages'] = { mod = {}, key = 'm' }
-    at['Sequel Pro'] = { mod = {}, key = 'q' }
-    at['draw.io'] = { mod = {}, key = 'r' }
-    at['Slack'] = { mod = {}, key = 's' }
-    at['iTerm'] = { mod = {}, key = 'space' }
-    at['Terminal'] = { mod = {'shift'}, key = 'space' }
-    at['Telegram'] = { mod = {}, key = 't' }
-    at['VimR'] = { mod = {}, key = 'v' }
-    at['Visual Studio Code'] = { mod = {'shift'}, key = 'v' }
-    at['Microsoft Excel'] = { mod = {}, key = 'x' }
-    at['zoom.us'] = { mod = {}, key = 'z' }
-
-    for app_name, v in pairs(at) do
-        local mod = at[app_name]['mod']
-        local key = at[app_name]['key']
-        mode:bind(mod, key, app_man:toggle(app_name), function() mode:exit() end)
-    end
-
-    mode:bind({}, 'tab', hs.hints.windowHints)
-    hs.hints.hintChars = {
-        'q', 'w', 'e', 'r',
-        'a', 's', 'd', 'f',
-        'z', 'x', 'c', 'v',
-        '1', '2', '3', '4',
-        'j', 'k',
-        'i', 'o',
-        'm', ','
-    }
-
-    mvim = true
-    mode:bind({'control'}, 'v', function()
-
-    end)
-end
-
-function set_win_move(mode)
-    mode:bind({}, '0', win_move.default)
-    mode:bind({'shift'}, '0', win_move.move(1/6, 0, 4/6, 1))
-    mode:bind({}, '1', win_move.left_bottom)
-    mode:bind({}, '2', win_move.bottom)
-    mode:bind({}, '3', win_move.right_bottom)
-    mode:bind({}, '4', win_move.left)
-    mode:bind({'shift'}, '4', win_move.move(0, 0, 2/3, 1))
-    mode:bind({}, '5', win_move.full_screen)
-    mode:bind({}, '6', win_move.right)
-    mode:bind({'shift'}, '6', win_move.move(1/3, 0, 2/3, 1))
-    mode:bind({}, '7', win_move.left_top)
-    mode:bind({}, '8', win_move.top)
-    mode:bind({}, '9', win_move.right_top)
-    mode:bind({}, '-', win_move.prev_screen)
-    mode:bind({}, '=', win_move.next_screen)
-    -- mode:bind({}, 'left', win_move.move_relative(-10, 0), function() end, win_move.move_relative(-10, 0))
-    -- mode:bind({}, 'right', win_move.move_relative(10, 0), function() end, win_move.move_relative(10, 0))
-    -- mode:bind({}, 'up', win_move.move_relative(0, -10), function() end, win_move.move_relative(0, -10))
-    -- mode:bind({}, 'down', win_move.move_relative(0, 10), function() end, win_move.move_relative(0, 10))
-    mode:bind({}, 'z', function()
-        local win = hs.window.focusedWindow()
-
-        if win == nil then
-            win = hs.window.frontmostWindow()
-        end
-        local screen = win:screen()
-        local cell = hs.grid.get(win, screen)
-
-        print(cell)
-
-        hs.grid.set(win, cell, screen)
-    end)
-end
-
-set_win_move(app_mode)
-set_win_move(vim_mode)
+local event_runner = require('modules.event_runner'):init('f17', {
+    -- app_toggle
+    { key = ',', mod = {}, func = app_toggle('System Preferences'), msg = 'System Preferences' },
+    { key = '/', mod = {}, func = app_toggle('Activity Monitor') },
+    { key = 'a', mod = {}, func = app_toggle('safari') },
+    { key = 'c', mod = {}, func = app_toggle('Google Chrome') },
+    { key = 'd', mod = {}, func = app_toggle('discord') },
+    { key = 'e', mod = {}, func = app_toggle('Finder') },
+    { key = 'f', mod = {}, func = app_toggle('Firefox') },
+    { key = 'g', mod = {}, func = app_toggle('DataGrip') },
+    { key = 'i', mod = {}, func = app_toggle('IntelliJ IDEA') },
+    { key = 'k', mod = {}, func = app_toggle('KakaoTalk') },
+    { key = 'l', mod = {}, func = app_toggle('Line') },
+    { key = 'm', mod = {}, func = app_toggle('NoSQLBooster for MongoDB') },
+    { key = 'n', mod = {}, func = app_toggle('Notes') },
+    { key = 'o', mod = {}, func = app_toggle('Microsoft OneNote') },
+    { key = 'p', mod = {}, func = app_toggle('Preview') },
+    { key = 'q', mod = {}, func = app_toggle('Sequel Pro') },
+    { key = 'r', mod = {}, func = app_toggle('draw.io') },
+    { key = 's', mod = {}, func = app_toggle('Slack') },
+    { key = 't', mod = {}, func = app_toggle('Telegram') },
+    { key = 'v', mod = {}, func = app_toggle('VimR') },
+    { key = 'v', mod = {'shift'}, func = app_toggle('Visual Studio Code') },
+    { key = 'x', mod = {}, func = app_toggle('Microsoft Excel') },
+    { key = 'tab', mod = {}, func = hs.hints.windowHints },
+    -- win_move
+    { key = '0', mod = {}, func = win_move.default },
+    { key = '0', mod = {'shift'}, func = win_move.move(1/6, 0, 4/6, 1) },
+    { key = '1', mod = {}, func = win_move.left_bottom },
+    { key = '2', mod = {}, func = win_move.bottom },
+    { key = '3', mod = {}, func = win_move.right_bottom },
+    { key = '4', mod = {}, func = win_move.left },
+    { key = '4', mod = {'shift'}, func = win_move.move(0, 0, 2/3, 1) },
+    { key = '5', mod = {}, func = win_move.full_screen },
+    { key = '6', mod = {}, func = win_move.right },
+    { key = '6', mod = {'shift'}, func = win_move.move(1/3, 0, 2/3, 1) },
+    { key = '7', mod = {}, func = win_move.left_top },
+    { key = '8', mod = {}, func = win_move.top },
+    { key = '9', mod = {}, func = win_move.right_top },
+    -- win_move to next screen
+    { key = '-', mod = {}, func = win_move.prev_screen },
+    { key = '=', mod = {}, func = win_move.next_screen },
+    { key = '`', mod = {}, func = win_move.prev_screen },
+})
 
 -- spoon plugins
 hs.loadSpoon("SpoonInstall")
@@ -214,7 +200,6 @@ function plugInstall()
 
     hs.alert.show('plugin installed')
 end
-
 
 require('modules.Caffeine'):init(spoon)
 require('modules.inputsource_aurora')

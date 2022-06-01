@@ -101,7 +101,7 @@ function obj:init(key, func_table)
                 hs.eventtap.keyStroke({}, 'right')
                 hs.keycodes.currentSourceID(inputEnglish)
             end
-            hs.alert.show('escape')
+            hs.alert.show('escape', 0.5)
             hs.eventtap.keyStroke({}, 'escape')
         end
 

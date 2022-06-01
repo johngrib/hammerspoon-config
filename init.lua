@@ -149,6 +149,7 @@ local right_event_map = {
     { key = 'space', mod = {}, func = app_toggle('iTerm') },
     { key = 'space', mod = {'shift'}, func = app_toggle('Terminal') },
     { key = 'tab', mod = {}, func = hs.hints.windowHints },
+    { key = 'tab', mod = {'shift'}, func = hs.window._timed_allWindows },
     -- win_move
     { key = '0', mod = {}, func = win_move.default },
     { key = '0', mod = {'shift'}, func = win_move.move(1/6, 0, 4/6, 1) },

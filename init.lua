@@ -7,22 +7,9 @@ local inputKorean = "org.youknowone.inputmethod.Gureum.han2"
 
 local win_move = require('modules.winmove')
 local app_man = require('modules.appman')
-
-local vim_mode = hs.hotkey.modal.new()
 local app_mode = hs.hotkey.modal.new()
 
-local vimlike = require('modules.vim'):init(vim_mode)
-
 hs.window.animationDuration = 0
-
--- hs.hotkey.bind({}, 'f17', function() app_mode:enter() end, function() app_mode:exit() end)
-
-local maccy = function()
-    -- maccy 는 단축키 조합에 f1 ~ f20 이 들어가면 인식을 못한다.
-    hs.eventtap.keyStroke({'command', 'shift', 'option', 'control'}, 'c')
-end
-
-hs.hotkey.bind({'shift'}, 'f14', maccy) -- for maccy
 
 function app_toggle(name, secondName)
     if secondName == nil then
@@ -48,89 +35,60 @@ function app_toggle(name, secondName)
     end
 end
 
+local tabTable = {}
 
-function setVimlikeKey(keyCode)
-    local vimlikeKey = keyCode
-    hs.hotkey.bind({}, vimlikeKey, vimlike.on, vimlike.off)
-    hs.hotkey.bind({'cmd'}, vimlikeKey, vimlike.on, vimlike.off)
-    hs.hotkey.bind({'shift'}, vimlikeKey, vimlike.on, vimlike.off)
+tabTable['Slack'] = {
+    left = { mod = {'option'}, key = 'up' },
+    right = { mod = {'option'}, key = 'down' }
+}
+tabTable['Safari'] = {
+    left = { mod = {'control', 'shift'}, key = 'tab' },
+    right = { mod = {'control'}, key = 'tab' }
+}
+tabTable['터미널'] = {
+    left = { mod = {'control', 'shift'}, key = 'tab' },
+    right = { mod = {'control'}, key = 'tab' }
+}
+tabTable['Terminal'] = {
+    left = { mod = {'control', 'shift'}, key = 'tab' },
+    right = { mod = {'control'}, key = 'tab' }
+}
+tabTable['iTerm2'] = {
+    left = { mod = {'shift', 'command'}, key = '[' },
+    right = { mod = {'shift', 'command'}, key = ']' }
+}
+tabTable['IntelliJ IDEA'] = {
+    left = { mod = {'command', 'shift'}, key = '[' },
+    right = { mod = {'command', 'shift'}, key = ']' }
+}
+tabTable['PhpStorm'] = {
+    left = { mod = {'command', 'shift'}, key = '[' },
+    right = { mod = {'command', 'shift'}, key = ']' }
+}
+tabTable['Code'] = {
+    left = { mod = {'command', 'shift'}, key = '[' },
+    right = { mod = {'command', 'shift'}, key = ']' }
+}
+tabTable['DataGrip'] = {
+    left = { mod = {'command', 'shift'}, key = '[' },
+    right = { mod = {'command', 'shift'}, key = ']' }
+}
+tabTable['_else_'] = {
+    left = { mod = {'control'}, key = 'pageup' },
+    right = { mod = {'control'}, key = 'pagedown' }
+}
 
-    vim_mode:bind({}, 'q', hs.caffeinate.systemSleep, vimlike.close)
-    vim_mode:bind({'shift'}, 'r', hs.reload, vimlike.close)
-    vim_mode:bind({}, 'a', function()
+local function tabMove(dir)
+    return function()
+        -- vimlike.close()
         local activeAppName = hs.application.frontmostApplication():name()
-        hs.alert.show(activeAppName)
-    end, vimlike.close)
-
-    vim_mode:bind({}, 'c', maccy, vimlike.close)
-    vim_mode:bind({}, 'n', app_man:toggle('Notion'), vimlike.close)
-    vim_mode:bind({}, 'm', app_man:toggle('Google Meet'), vimlike.close)
-    vim_mode:bind({}, 'd', app_man:toggle('dictionary'), vimlike.close)
-    vim_mode:bind({}, 'p', app_man:toggle('Postman'), vimlike.close)
-end
-
-do  -- vimlike
-    setVimlikeKey('f13')
-    -- setVimlikeKey('f16')
-end
-
-do  -- tab move
-    local tabTable = {}
-
-    tabTable['Slack'] = {
-        left = { mod = {'option'}, key = 'up' },
-        right = { mod = {'option'}, key = 'down' }
-    }
-    tabTable['Safari'] = {
-        left = { mod = {'control', 'shift'}, key = 'tab' },
-        right = { mod = {'control'}, key = 'tab' }
-    }
-    tabTable['터미널'] = {
-        left = { mod = {'control', 'shift'}, key = 'tab' },
-        right = { mod = {'control'}, key = 'tab' }
-    }
-    tabTable['Terminal'] = {
-        left = { mod = {'control', 'shift'}, key = 'tab' },
-        right = { mod = {'control'}, key = 'tab' }
-    }
-    tabTable['iTerm2'] = {
-        left = { mod = {'shift', 'command'}, key = '[' },
-        right = { mod = {'shift', 'command'}, key = ']' }
-    }
-    tabTable['IntelliJ IDEA'] = {
-        left = { mod = {'command', 'shift'}, key = '[' },
-        right = { mod = {'command', 'shift'}, key = ']' }
-    }
-    tabTable['PhpStorm'] = {
-        left = { mod = {'command', 'shift'}, key = '[' },
-        right = { mod = {'command', 'shift'}, key = ']' }
-    }
-    tabTable['Code'] = {
-        left = { mod = {'command', 'shift'}, key = '[' },
-        right = { mod = {'command', 'shift'}, key = ']' }
-    }
-    tabTable['DataGrip'] = {
-        left = { mod = {'command', 'shift'}, key = '[' },
-        right = { mod = {'command', 'shift'}, key = ']' }
-    }
-    tabTable['_else_'] = {
-        left = { mod = {'control'}, key = 'pageup' },
-        right = { mod = {'control'}, key = 'pagedown' }
-    }
-
-    local function tabMove(dir)
-        return function()
-            vimlike.close()
-            local activeAppName = hs.application.frontmostApplication():name()
-            local tab = tabTable[activeAppName] or tabTable['_else_']
-            hs.eventtap.event.newKeyEvent(tab[dir]['mod'], tab[dir]['key'], true):post()
-            hs.eventtap.event.newKeyEvent(tab[dir]['mod'], tab[dir]['key'], false):post()
-            -- hs.eventtap.keyStroke(tab[dir]['mod'], tab[dir]['key'])
-        end
+        local tab = tabTable[activeAppName] or tabTable['_else_']
+        -- hs.eventtap.event.newKeyEvent(tab[dir]['mod'], tab[dir]['key'], true):post()
+        -- hs.eventtap.event.newKeyEvent(tab[dir]['mod'], tab[dir]['key'], false):post()
+        -- hs.alert(activeAppName)
+        hs.eventtap.keyStroke(tab[dir]['mod'], tab[dir]['key'])
+        -- hs.eventtap.keyStroke(tab[dir]['mod'], tab[dir]['key'])
     end
-
-    vim_mode:bind({}, ',', tabMove('left'), vimlike.close, vimlike.close)
-    vim_mode:bind({}, '.', tabMove('right'), vimlike.close, vimlike.close)
 end
 
 hs.hints.hintChars = {
@@ -143,7 +101,32 @@ hs.hints.hintChars = {
     'm', ','
 }
 
-local event_runner = require('modules.event_runner'):init('f17', {
+function rapidKey(modifiers, key)
+    modifiers = modifiers or {}
+    return function()
+        hs.eventtap.event.newKeyEvent(modifiers, string.lower(key), true):post()
+        hs.timer.usleep(100)
+        hs.eventtap.event.newKeyEvent(modifiers, string.lower(key), false):post()
+    end
+end
+
+local left_event_map = {
+    -- hammerspoon 관리
+    { key = 'r', mod = {'shift'}, func = hs.reload },
+    -- app_toggle
+    { key = 'n', mod = {}, func = app_toggle('Notion') },
+    { key = 'm', mod = {}, func = app_toggle('Google Meet') },
+    { key = 'd', mod = {}, func = app_toggle('dictionary') },
+    { key = 'p', mod = {}, func = app_toggle('Postman') },
+    { key = 'h', mod = {}, func = rapidKey({}, 'left') },
+    { key = 'j', mod = {}, func = rapidKey({}, 'down') },
+    { key = 'k', mod = {}, func = rapidKey({}, 'up') },
+    { key = 'l', mod = {}, func = rapidKey({}, 'right') },
+    { key = ',', mod = {}, func = tabMove('left') },
+    { key = '.', mod = {}, func = tabMove('right') },
+}
+
+local right_event_map = {
     -- app_toggle
     { key = ',', mod = {}, func = app_toggle('System Preferences'), msg = 'System Preferences' },
     { key = '/', mod = {}, func = app_toggle('Activity Monitor') },
@@ -167,6 +150,8 @@ local event_runner = require('modules.event_runner'):init('f17', {
     { key = 'v', mod = {}, func = app_toggle('VimR') },
     { key = 'v', mod = {'shift'}, func = app_toggle('Visual Studio Code') },
     { key = 'x', mod = {}, func = app_toggle('Microsoft Excel') },
+    { key = 'space', mod = {}, func = app_toggle('iTerm') },
+    { key = 'space', mod = {'shift'}, func = app_toggle('Terminal') },
     { key = 'tab', mod = {}, func = hs.hints.windowHints },
     -- win_move
     { key = '0', mod = {}, func = win_move.default },
@@ -186,7 +171,10 @@ local event_runner = require('modules.event_runner'):init('f17', {
     { key = '-', mod = {}, func = win_move.prev_screen },
     { key = '=', mod = {}, func = win_move.next_screen },
     { key = '`', mod = {}, func = win_move.prev_screen },
-})
+}
+
+local left_event_runner = require('modules.event_runner'):init('f13', left_event_map)
+local right_event_runner = require('modules.event_runner'):init('f17', right_event_map)
 
 -- spoon plugins
 hs.loadSpoon("SpoonInstall")

@@ -1,5 +1,8 @@
 local obj = {}
 
+local vim_icon = hs.menubar.new()
+local inputEnglish = "com.apple.keylayout.ABC"
+
 local flag = {
     -- func = function() end
     triggered = false,
@@ -75,23 +78,34 @@ function obj:init(key, func_table)
                 if not func then
                     return
                 end
+                func()
+                -- hs.alert.show('msg')
                 if flag['msg'] then
                     hs.alert.show(flag['msg'])
                 end
-                func()
                 flag.triggered = true
                 flag.func = false
                 flag.msg = nil
             end,
-            0.01)
+            0.001)
     end
 
     local off_mode = function()
         -- hs.alert.show('off mode')
+        if not flag.triggered then
+            local input_source = hs.keycodes.currentSourceID()
+            if not (input_source == inputEnglish) then
+                hs.eventtap.keyStroke({}, 'right')
+                hs.keycodes.currentSourceID(inputEnglish)
+            end
+            hs.alert.show('escape')
+            hs.eventtap.keyStroke({}, 'escape')
+        end
+
         flag = {
-            triggered = true,
+            triggered = false,
             leader_key_pressed = false,
-            func = function() end
+            func = nil
         }
         mode:exit()
     end

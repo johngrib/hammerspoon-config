@@ -53,6 +53,9 @@ end
 
 function obj:init(key, func_table)
     local mode = hs.hotkey.modal.new()
+
+    self.mode = mode
+
     function_table = func_table
 
     for i, v in pairs(function_table) do
@@ -112,7 +115,7 @@ function obj:init(key, func_table)
 
     hs.hotkey.bind({}, key, on_mode, off_mode)
 
-    return
+    return obj
 end
 
 return obj

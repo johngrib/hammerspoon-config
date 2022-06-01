@@ -83,11 +83,7 @@ local function tabMove(dir)
         -- vimlike.close()
         local activeAppName = hs.application.frontmostApplication():name()
         local tab = tabTable[activeAppName] or tabTable['_else_']
-        -- hs.eventtap.event.newKeyEvent(tab[dir]['mod'], tab[dir]['key'], true):post()
-        -- hs.eventtap.event.newKeyEvent(tab[dir]['mod'], tab[dir]['key'], false):post()
-        -- hs.alert(activeAppName)
-        hs.eventtap.keyStroke(tab[dir]['mod'], tab[dir]['key'])
-        -- hs.eventtap.keyStroke(tab[dir]['mod'], tab[dir]['key'])
+        hs.eventtap.event.newKeyEvent(tab[dir]['mod'], tab[dir]['key'], true):post()
     end
 end
 
@@ -173,8 +169,14 @@ local right_event_map = {
     { key = '`', mod = {}, func = win_move.prev_screen },
 }
 
-local left_event_runner = require('modules.event_runner'):init('f13', left_event_map)
-local right_event_runner = require('modules.event_runner'):init('f17', right_event_map)
+do
+    local left_event_runner = require('modules.event_runner')
+    left_event_runner:init('f13', left_event_map)
+
+    local right_event_runner = require('modules.event_runner')
+    right_event_runner:init('f17', right_event_map)
+end
+
 
 -- spoon plugins
 hs.loadSpoon("SpoonInstall")

@@ -8,6 +8,7 @@ local flag = {
     triggered = false,
     reservation = false,
     leader_key_pressed = false,
+    time = 0,
 }
 
 local function_table = {}
@@ -70,6 +71,7 @@ function obj:init(key, func_table)
         flag = {
             triggered = false,
             leader_key_pressed = true,
+            time = os.time(),
             func = nil
         }
         mode:enter()
@@ -81,7 +83,13 @@ function obj:init(key, func_table)
                 if not func then
                     return
                 end
-                func()
+                if os.time() - flag.time < 3 then
+                    func()
+                    flag.time = os.time()
+                else
+                    hs.alert.show('app manager timeout')
+                    mode:exit()
+                end
                 -- hs.alert.show('msg')
                 if flag['msg'] then
                     hs.alert.show(flag['msg'])
@@ -108,7 +116,8 @@ function obj:init(key, func_table)
         flag = {
             triggered = false,
             leader_key_pressed = false,
-            func = nil
+            func = nil,
+            time = 0
         }
         mode:exit()
     end

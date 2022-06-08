@@ -1,6 +1,6 @@
 local obj = {}
 
-local vim_icon = hs.menubar.new()
+local event_runner_icon = hs.menubar.new()
 local inputEnglish = "com.apple.keylayout.ABC"
 
 local flag = {
@@ -9,6 +9,7 @@ local flag = {
     reservation = false,
     leader_key_pressed = false,
     time = 0,
+    func = nil,
 }
 
 local function_table = {}
@@ -75,27 +76,34 @@ function obj:init(key, func_table)
             func = nil
         }
         mode:enter()
+        event_runner_icon:setTitle('A')
 
         hs.timer.doWhile(
             function() return flag.leader_key_pressed end,
             function()
-                local func = flag['func']
-                if not func then
+                if os.time() - flag.time >= 3 then
+                    hs.alert.show('app manager timeout')
+                    flag.leader_key_pressed = false
+                    flag.func = nil
+                    mode:exit()
                     return
                 end
-                if os.time() - flag.time < 3 then
-                    func()
-                    flag.time = os.time()
-                else
-                    hs.alert.show('app manager timeout')
-                    mode:exit()
+
+                if flag.func == nil then
+                    return
                 end
+
+                if not (flag.func == nil) and flag.func() then
+                end
+
+                flag.time = os.time()
+
                 -- hs.alert.show('msg')
                 if flag['msg'] then
                     hs.alert.show(flag['msg'])
                 end
                 flag.triggered = true
-                flag.func = false
+                flag.func = nil
                 flag.msg = nil
             end,
             0.001)
@@ -120,6 +128,7 @@ function obj:init(key, func_table)
             time = 0
         }
         mode:exit()
+        event_runner_icon:setTitle('')
     end
 
     hs.hotkey.bind({}, key, on_mode, off_mode)

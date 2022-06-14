@@ -81,37 +81,61 @@ function obj:init(key, func_table)
         hs.timer.doWhile(
             function() return flag.leader_key_pressed end,
             function()
-                if os.time() - flag.time >= 3 then
+                local old_flag = flag
+
+                if os.time() - old_flag.time >= 5 then
+                    -- 너무 오래됐다면 타임아웃
                     hs.alert.show('app manager timeout')
-                    flag.leader_key_pressed = false
-                    flag.func = nil
+                    -- flag를 초기화한다.
+                    flag = {
+                        triggered = false,
+                        reservation = false,
+                        leader_key_pressed = false,	-- 무한루프를 중단한다
+                        time = 0,
+                        func = nil,
+                    }
+                    event_runner_icon:setTitle('')
                     mode:exit()
                     return
                 end
 
-                if flag.func == nil then
+                if old_flag.func == nil then
+                    -- 아직 지정된 함수가 없다면 다음 루프로 진행하며 입력을 기다린다
                     return
+                else
+                    -- 지정된 함수가 있다면 flag 를 초기화하고, 함수를 실행한다
+                    flag = {
+                        triggered = true,
+                        reservation = false,
+                        leader_key_pressed = old_flag.leader_key_pressed,
+                        time = os.time(),
+                        func = nil,
+                    }
+                    -- 함수를 나중에 실행하는 이유는 함수 실행 시간이 오래 걸릴 수 있기 때문이다.
+                    old_flag.func()
                 end
-
-                if not (flag.func == nil) and flag.func() then
-                end
-
-                flag.time = os.time()
 
                 -- hs.alert.show('msg')
                 if flag['msg'] then
                     hs.alert.show(flag['msg'])
                 end
-                flag.triggered = true
-                flag.func = nil
-                flag.msg = nil
             end,
             0.001)
     end
 
     local off_mode = function()
-        -- hs.alert.show('off mode')
-        if not flag.triggered then
+        local trig = flag.triggered
+        mode:exit()
+
+        flag = {
+            triggered = false,
+            leader_key_pressed = false,
+            func = nil,
+            time = 0
+        }
+        event_runner_icon:setTitle('')
+
+        if not trig then
             local input_source = hs.keycodes.currentSourceID()
             if not (input_source == inputEnglish) then
                 hs.eventtap.keyStroke({}, 'right')
@@ -120,15 +144,6 @@ function obj:init(key, func_table)
             hs.alert.show('escape', 0.5)
             hs.eventtap.keyStroke({}, 'escape')
         end
-
-        flag = {
-            triggered = false,
-            leader_key_pressed = false,
-            func = nil,
-            time = 0
-        }
-        mode:exit()
-        event_runner_icon:setTitle('')
     end
 
     hs.hotkey.bind({}, key, on_mode, off_mode)

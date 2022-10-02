@@ -133,7 +133,7 @@ local right_event_map = {
     { key = 'e', mod = {}, func = app_toggle('Finder') },
     { key = 'f', mod = {}, func = app_toggle('Firefox') },
     { key = 'g', mod = {}, func = app_toggle('DataGrip') },
-    -- { key = 'i', mod = {}, func = app_toggle('IntelliJ IDEA') },
+    { key = 'i', mod = {}, func = app_toggle('IntelliJ IDEA') },
     { key = 'k', mod = {}, func = app_toggle('KakaoTalk') },
     -- { key = 'l', mod = {}, func = app_toggle('Line') },
     -- { key = 'm', mod = {}, func = app_toggle('NoSQLBooster for MongoDB') },

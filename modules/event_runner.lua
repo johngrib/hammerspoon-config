@@ -138,7 +138,7 @@ function obj:init(key, func_table)
         if not trig then
             local input_source = hs.keycodes.currentSourceID()
             if not (input_source == inputEnglish) then
-                hs.eventtap.keyStroke({}, 'right')
+                -- hs.eventtap.keyStroke({}, 'right')
                 hs.keycodes.currentSourceID(inputEnglish)
             end
             hs.alert.show('escape', 0.5)

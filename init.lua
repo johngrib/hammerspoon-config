@@ -127,7 +127,8 @@ local right_event_map = {
     -- app_toggle
     { key = ',', mod = {}, func = app_toggle('System Preferences'), msg = 'System Preferences' },
     { key = '/', mod = {}, func = app_toggle('Activity Monitor') },
-    { key = 'a', mod = {}, func = app_toggle('safari') },
+    -- { key = 'a', mod = {}, func = app_toggle('safari') },
+    { key = 'a', mod = {}, func = app_toggle('Arc') },
     { key = 'c', mod = {}, func = app_toggle('Google Chrome') },
     { key = 'd', mod = {}, func = app_toggle('discord') },
     { key = 'e', mod = {}, func = app_toggle('Finder') },
@@ -146,9 +147,9 @@ local right_event_map = {
     { key = 'v', mod = {}, func = app_toggle('VimR') },
     -- { key = 'v', mod = {'shift'}, func = app_toggle('Visual Studio Code') },
     -- { key = 'x', mod = {}, func = app_toggle('Microsoft Excel') },
-    { key = 'space', mod = {}, func = app_toggle('iTerm') },
+    -- { key = 'space', mod = {'shift'}, func = app_toggle('iTerm') },
     { key = 'space', mod = {'shift'}, func = app_toggle('Terminal') },
-    -- { key = 'w', mod = {}, func = app_toggle('WezTerm') },
+    { key = 'space', mod = {}, func = app_toggle('WezTerm') },
     { key = 'tab', mod = {}, func = hs.hints.windowHints },
     { key = 'tab', mod = {'shift'}, func = hs.window._timed_allWindows },
     -- win_move

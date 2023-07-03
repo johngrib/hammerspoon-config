@@ -148,8 +148,8 @@ local right_event_map = {
     -- { key = 'v', mod = {'shift'}, func = app_toggle('Visual Studio Code') },
     -- { key = 'x', mod = {}, func = app_toggle('Microsoft Excel') },
     -- { key = 'space', mod = {'shift'}, func = app_toggle('iTerm') },
-    { key = 'space', mod = {'shift'}, func = app_toggle('Terminal') },
-    { key = 'space', mod = {}, func = app_toggle('WezTerm') },
+    { key = 'space', mod = {}, func = app_toggle('Terminal') },
+    { key = 'space', mod = {'shift'}, func = app_toggle('WezTerm') },
     { key = 'tab', mod = {}, func = hs.hints.windowHints },
     { key = 'tab', mod = {'shift'}, func = hs.window._timed_allWindows },
     -- win_move

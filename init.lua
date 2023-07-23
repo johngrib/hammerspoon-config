@@ -127,8 +127,7 @@ local right_event_map = {
     -- app_toggle
     { key = ',', mod = {}, func = app_toggle('System Preferences'), msg = 'System Preferences' },
     { key = '/', mod = {}, func = app_toggle('Activity Monitor') },
-    -- { key = 'a', mod = {}, func = app_toggle('safari') },
-    { key = 'a', mod = {}, func = app_toggle('Arc') },
+    { key = 'a', mod = {}, func = app_toggle('safari') },
     { key = 'c', mod = {}, func = app_toggle('Google Chrome') },
     { key = 'd', mod = {}, func = app_toggle('discord') },
     { key = 'e', mod = {}, func = app_toggle('Finder') },

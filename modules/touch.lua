@@ -62,6 +62,7 @@ end
 
 do -- touch + c
     local edgeTable = {}
+    edgeTable['DeepL'] = { x = -50, y = -100, click = true }
     edgeTable['_else_'] = { x = -30, y = -30, click = false }
 
     hs.urlevent.bind("mouse-move-c", function(eventName, params)

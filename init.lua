@@ -135,7 +135,7 @@ local right_event_map = {
     { key = 'g', mod = {}, func = app_toggle('DataGrip') },
     { key = 'i', mod = {}, func = app_toggle('IntelliJ IDEA') },
     { key = 'k', mod = {}, func = app_toggle('KakaoTalk') },
-    -- { key = 'l', mod = {}, func = app_toggle('Line') },
+    { key = 'l', mod = {}, func = app_toggle('DeepL') },
     { key = 'm', mod = {}, func = app_toggle('Microsoft Edge') },
     { key = 'n', mod = {}, func = app_toggle('Notes') },
     -- { key = 'o', mod = {}, func = app_toggle('Microsoft OneNote') },

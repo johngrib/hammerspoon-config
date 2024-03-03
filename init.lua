@@ -20,7 +20,10 @@ function app_toggle(name, secondName)
         local activated = hs.application.frontmostApplication()
         local path = string.lower(activated:path())
 
-        if string.match(path, string.lower(name) .. '%.app$') or string.match(path, string.lower(secondName) .. '%.app$') then
+        if string.match(path, string.lower(name) .. '%.app$') then
+            activated:hide()
+            return
+        elseif string.match(path, string.lower(secondName) .. '%.app$') then
             activated:hide()
             return
         end
@@ -133,7 +136,7 @@ local right_event_map = {
     { key = 'e', mod = {}, func = app_toggle('Finder') },
     { key = 'f', mod = {}, func = app_toggle('Firefox') },
     { key = 'g', mod = {}, func = app_toggle('DataGrip') },
-    { key = 'i', mod = {}, func = app_toggle('IntelliJ IDEA') },
+    { key = 'i', mod = {}, func = app_toggle('IntelliJ IDEA', 'IntelliJ IDEA CE') },
     { key = 'k', mod = {}, func = app_toggle('KakaoTalk') },
     { key = 'l', mod = {}, func = app_toggle('DeepL') },
     { key = 'm', mod = {}, func = app_toggle('Microsoft Edge') },

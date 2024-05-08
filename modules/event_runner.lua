@@ -14,13 +14,13 @@ local flag = {
 
 local function_table = {}
 
-function send_event(callback_func, msg)
-    -- hs.alert.show('send event')
-    flag.func = callback_func
-    flag.triggered = false
-    flag.reservation = true
-    flag.msg = msg
-end
+-- function send_event(callback_func, msg)
+--     -- hs.alert.show('send event')
+--     flag.func = callback_func
+--     flag.triggered = false
+--     flag.reservation = true
+--     flag.msg = msg
+-- end
 
 function invoke_event()
     local func = flag['func']
@@ -64,7 +64,8 @@ function obj:init(key, func_table)
         -- hs.alert.show(i)
         local mod = v['mod']
         local lkey = v['key']
-        mode:bind(mod, lkey, function() send_event(v['func'], v['msg']) end)
+        -- mode:bind(mod, lkey, function() send_event(v['func'], v['msg']) end)
+        mode:bind(mod, lkey, v['func'])
     end
 
     local on_mode = function()
@@ -78,49 +79,49 @@ function obj:init(key, func_table)
         mode:enter()
         event_runner_icon:setTitle('A')
 
-        hs.timer.doWhile(
-            function() return flag.leader_key_pressed end,
-            function()
-                local old_flag = flag
+        -- hs.timer.doWhile(
+        --     function() return flag.leader_key_pressed end,
+        --     function()
+        --         local old_flag = flag
 
-                if os.time() - old_flag.time >= 5 then
-                    -- 너무 오래됐다면 타임아웃
-                    hs.alert.show('app manager timeout')
-                    -- flag를 초기화한다.
-                    flag = {
-                        triggered = false,
-                        reservation = false,
-                        leader_key_pressed = false,	-- 무한루프를 중단한다
-                        time = 0,
-                        func = nil,
-                    }
-                    event_runner_icon:setTitle('')
-                    mode:exit()
-                    return
-                end
+        --         if os.time() - old_flag.time >= 5 then
+        --             -- 너무 오래됐다면 타임아웃
+        --             hs.alert.show('app manager timeout')
+        --             -- flag를 초기화한다.
+        --             flag = {
+        --                 triggered = false,
+        --                 reservation = false,
+        --                 leader_key_pressed = false,	-- 무한루프를 중단한다
+        --                 time = 0,
+        --                 func = nil,
+        --             }
+        --             event_runner_icon:setTitle('')
+        --             mode:exit()
+        --             return
+        --         end
 
-                if old_flag.func == nil then
-                    -- 아직 지정된 함수가 없다면 다음 루프로 진행하며 입력을 기다린다
-                    return
-                else
-                    -- 지정된 함수가 있다면 flag 를 초기화하고, 함수를 실행한다
-                    flag = {
-                        triggered = true,
-                        reservation = false,
-                        leader_key_pressed = old_flag.leader_key_pressed,
-                        time = os.time(),
-                        func = nil,
-                    }
-                    -- 함수를 나중에 실행하는 이유는 함수 실행 시간이 오래 걸릴 수 있기 때문이다.
-                    old_flag.func()
-                end
+        --         if old_flag.func == nil then
+        --             -- 아직 지정된 함수가 없다면 다음 루프로 진행하며 입력을 기다린다
+        --             return
+        --         else
+        --             -- 지정된 함수가 있다면 flag 를 초기화하고, 함수를 실행한다
+        --             flag = {
+        --                 triggered = true,
+        --                 reservation = false,
+        --                 leader_key_pressed = old_flag.leader_key_pressed,
+        --                 time = os.time(),
+        --                 func = nil,
+        --             }
+        --             -- 함수를 나중에 실행하는 이유는 함수 실행 시간이 오래 걸릴 수 있기 때문이다.
+        --             old_flag.func()
+        --         end
 
-                -- hs.alert.show('msg')
-                if flag['msg'] then
-                    hs.alert.show(flag['msg'])
-                end
-            end,
-            0.001)
+        --         -- hs.alert.show('msg')
+        --         if flag['msg'] then
+        --             hs.alert.show(flag['msg'])
+        --         end
+        --     end,
+        --     0.001)
     end
 
     local off_mode = function()

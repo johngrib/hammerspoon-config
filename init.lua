@@ -34,7 +34,7 @@ function app_toggle(name, secondName)
 
         local screen = hs.window.focusedWindow():frame()
         local pt = hs.geometry.rectMidPoint(screen)
-        hs.mouse.setAbsolutePosition(pt)
+        hs.mouse.absolutePosition(pt)
     end
 end
 
@@ -135,7 +135,7 @@ local right_event_map = {
     { key = 'd', mod = {}, func = app_toggle('discord') },
     { key = 'e', mod = {}, func = app_toggle('Finder') },
     { key = 'f', mod = {}, func = app_toggle('Firefox') },
-    { key = 'g', mod = {}, func = app_toggle('DataGrip') },
+    { key = 'g', mod = {}, func = app_toggle('DataGrip', 'DBeaver') },
     { key = 'i', mod = {}, func = app_toggle('IntelliJ IDEA', 'IntelliJ IDEA CE') },
     { key = 'k', mod = {}, func = app_toggle('KakaoTalk') },
     { key = 'l', mod = {}, func = app_toggle('DeepL') },

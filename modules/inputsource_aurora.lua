@@ -3,14 +3,23 @@ local inputEnglish = "com.apple.keylayout.ABC"
 local box_height = 23
 local box_alpha = 0.35
 local GREEN = hs.drawing.color.osx_green
+local screenCount = #hs.screen.allScreens()
 
--- 입력소스 변경 이벤트에 이벤트 리스너를 달아준다
-hs.keycodes.inputSourceChanged(function()
+function show_autohide()
     disable_show()
     if hs.keycodes.currentSourceID() ~= inputEnglish then
         enable_show()
     end
-end)
+end
+
+function handleScreenEvent()
+    -- hs.alert.show('모니터 수 변경')
+    local screens = hs.screen.allScreens()
+    if not (#screens == screenCount) then
+        screenCount = #screens
+        show_autohide()
+    end
+end
 
 function enable_show()
     reset_boxes()
@@ -58,4 +67,10 @@ function draw_rectangle(target_draw, x, y, width, height, fill_color)
   target_draw:setBehavior(hs.drawing.windowBehaviors.canJoinAllSpaces)
   target_draw:show()
 end
+
+-- 입력소스 변경 이벤트에 이벤트 리스너를 달아준다
+hs.keycodes.inputSourceChanged(show_autohide)
+-- 모니터 수 변경 이벤트에 이벤트 리스너를 달아준다
+local screenWatcher = hs.screen.watcher.new(handleScreenEvent)
+screenWatcher:start()
 

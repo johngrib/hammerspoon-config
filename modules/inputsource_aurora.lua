@@ -14,11 +14,12 @@ end
 
 function handleScreenEvent()
     -- hs.alert.show('모니터 수 변경')
-    local screens = hs.screen.allScreens()
-    if not (#screens == screenCount) then
-        screenCount = #screens
-        show_autohide()
-    end
+    show_autohide()
+    -- local screens = hs.screen.allScreens()
+    -- if not (#screens == screenCount) then
+    --     screenCount = #screens
+    --     show_autohide()
+    -- end
 end
 
 function enable_show()

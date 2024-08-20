@@ -177,9 +177,9 @@ local right_event_map = {
 
 do
     local left_event_runner = require('modules.event_runner')
-    left_event_runner:init('f13', left_event_map)
+    left_event_runner:init('f13', left_event_map, true)
 
-    local right_event_runner = require('modules.event_runner')
+    local right_event_runner = require('modules.event_runner', false)
     right_event_runner:init('f17', right_event_map)
 end
 

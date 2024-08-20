@@ -53,7 +53,7 @@ function toggle(name, secondName)
     end
 end
 
-function obj:init(key, func_table)
+function obj:init(key, func_table, is_press_escape)
     local mode = hs.hotkey.modal.new()
 
     self.mode = mode
@@ -139,11 +139,15 @@ function obj:init(key, func_table)
         if not trig then
             local input_source = hs.keycodes.currentSourceID()
             if not (input_source == inputEnglish) then
-                hs.eventtap.keyStroke({}, 'right')
+                if is_press_escape then
+                    hs.eventtap.keyStroke({}, 'right')
+                end
                 hs.keycodes.currentSourceID(inputEnglish)
             end
-            hs.alert.show('escape', 0.5)
-            hs.eventtap.keyStroke({}, 'escape')
+            if is_press_escape then
+                hs.alert.show('escape', 0.5)
+                hs.eventtap.keyStroke({}, 'escape')
+            end
         end
     end
 

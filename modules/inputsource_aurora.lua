@@ -71,7 +71,7 @@ end
 
 -- 입력소스 변경 이벤트에 이벤트 리스너를 달아준다
 hs.keycodes.inputSourceChanged(show_autohide)
--- 모니터 수 변경 이벤트에 이벤트 리스너를 달아준다
-local screenWatcher = hs.screen.watcher.new(handleScreenEvent)
-screenWatcher:start()
+-- 스크린 변경 이벤트에 이벤트 리스너를 달아준다
+hs.screen.watcher.new(handleScreenEvent):start()
+hs.screen.watcher.newWithActiveScreen(handleScreenEvent):start()
 

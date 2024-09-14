@@ -1,7 +1,5 @@
 -- hammerspoon config
 
--- require('luarocks.loader')
--- require('modules.mouse'):init('f16')
 local inputEnglish = "com.apple.keylayout.ABC"
 local inputKorean = "org.youknowone.inputmethod.Gureum.han2"
 
@@ -9,7 +7,20 @@ local win_move = require('modules.winmove')
 local app_man = require('modules.appman')
 local app_mode = hs.hotkey.modal.new()
 
+left_event_runner = require('modules.event_runner')
+right_event_runner = require('modules.event_runner')
+
+
 hs.window.animationDuration = 0
+
+FLAG = {
+    finally_esc = false,
+    triggered = false,
+    reservation = false,
+    leader_key_pressed = false,
+    time = 0,
+    func = nil,
+}
 
 function app_toggle(name, secondName)
     if secondName == nil then
@@ -17,6 +28,7 @@ function app_toggle(name, secondName)
         secondName = '85ED2184-ABF5-4924-AE3F-B702622B858D'
     end
     return function()
+        FLAG.finally_esc = false
         local activated = hs.application.frontmostApplication()
         local path = string.lower(activated:path())
 
@@ -83,7 +95,7 @@ tabTable['_else_'] = {
 
 local function tabMove(dir)
     return function()
-        -- vimlike.close()
+        FLAG.finally_esc = false
         local activeAppName = hs.application.frontmostApplication():name()
         local tab = tabTable[activeAppName] or tabTable['_else_']
         hs.eventtap.event.newKeyEvent(tab[dir]['mod'], tab[dir]['key'], true):post()
@@ -118,6 +130,7 @@ local left_event_map = {
     { key = 'd', mod = {}, func = app_toggle('dictionary') },
     -- { key = 'p', mod = {}, func = app_toggle('Postman') },
     { key = 'r', mod = {}, func = app_toggle('draw.io') },
+    { key = 'p', mod = {}, func = app_toggle('Poe') },
     { key = 'h', mod = {}, func = rapidKey({}, 'left') },
     { key = 'j', mod = {}, func = rapidKey({}, 'down') },
     { key = 'k', mod = {}, func = rapidKey({}, 'up') },
@@ -149,9 +162,9 @@ local right_event_map = {
     { key = 'v', mod = {}, func = app_toggle('VimR') },
     -- { key = 'v', mod = {'shift'}, func = app_toggle('Visual Studio Code') },
     -- { key = 'x', mod = {}, func = app_toggle('Microsoft Excel') },
-    -- { key = 'space', mod = {'shift'}, func = app_toggle('iTerm') },
+    { key = 'space', mod = {}, func = app_toggle('iTerm') },
     { key = 'space', mod = {'shift'}, func = app_toggle('Terminal') },
-    { key = 'space', mod = {}, func = app_toggle('Alacritty') },
+    -- { key = 'space', mod = {}, func = app_toggle('Alacritty') },
     -- { key = 'space', mod = {'shift'}, func = app_toggle('WezTerm') },
     { key = 'tab', mod = {}, func = hs.hints.windowHints },
     { key = 'tab', mod = {'shift'}, func = hs.window._timed_allWindows },
@@ -176,13 +189,9 @@ local right_event_map = {
 }
 
 do
-    local left_event_runner = require('modules.event_runner')
-    left_event_runner:init('f13', left_event_map, true)
-
-    local right_event_runner = require('modules.event_runner', false)
+    left_event_runner:init('f13', left_event_map)
     right_event_runner:init('f17', right_event_map)
 end
-
 
 -- spoon plugins
 hs.loadSpoon("SpoonInstall")

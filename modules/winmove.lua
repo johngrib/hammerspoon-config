@@ -10,6 +10,7 @@ local half_height, full_height = 2, 1
 
 local function move_win(xx, yy, ww, hh)
     return function()
+        FLAG.finally_esc = false
         local win = hs.window.focusedWindow()
 
         if win == nil then
@@ -28,6 +29,7 @@ end
 
 local function move_win_relative(xx, yy)
     return function()
+        FLAG.finally_esc = false
         local win = hs.window.focusedWindow()
         local f = win:frame()
         local max = win:screen():frame()
@@ -38,6 +40,7 @@ local function move_win_relative(xx, yy)
 end
 
 local function send_window_prev_screen()
+    FLAG.finally_esc = false
     local win = hs.window.focusedWindow()
     local nextScreen = win:screen():previous()
     win:moveToScreen(nextScreen, true, false, 0)
@@ -45,6 +48,7 @@ local function send_window_prev_screen()
 end
 
 local function send_window_next_screen()
+    FLAG.finally_esc = false
     local win = hs.window.focusedWindow()
     local nextScreen = win:screen():next()
     win:moveToScreen(nextScreen, true, false, 0)
@@ -52,6 +56,7 @@ local function send_window_next_screen()
 end
 
 local function maximize()
+    FLAG.finally_esc = false
     local win = hs.window.focusedWindow()
     win:maximize()
 end

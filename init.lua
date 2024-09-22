@@ -7,9 +7,15 @@ local win_move = require('modules.winmove')
 local app_man = require('modules.appman')
 local app_mode = hs.hotkey.modal.new()
 
+do
+    local config_path = package.searchpath('local_config', package.path)
+    if config_path then
+        require('local_config')
+    end
+end
+
 left_event_runner = require('modules.event_runner')
 right_event_runner = require('modules.event_runner')
-
 
 hs.window.animationDuration = 0
 

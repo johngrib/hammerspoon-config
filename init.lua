@@ -131,12 +131,12 @@ local f13_event_map = {
     -- hammerspoon 관리
     { key = 'r', mod = {'shift'}, func = hs.reload },
     -- app_toggle
-    { key = 'n', mod = {}, func = app_toggle('Notion') },
-    { key = 'm', mod = {}, func = app_toggle('Google Meet') },
+    -- { key = 'n', mod = {}, func = app_toggle('Notion') },
+    -- { key = 'm', mod = {}, func = app_toggle('Google Meet') },
     { key = 'd', mod = {}, func = app_toggle('dictionary') },
     -- { key = 'p', mod = {}, func = app_toggle('Postman') },
     { key = 'r', mod = {}, func = app_toggle('draw.io') },
-    { key = 'p', mod = {}, func = app_toggle('Poe') },
+    -- { key = 'p', mod = {}, func = app_toggle('Poe') },
     { key = 'h', mod = {}, func = rapidKey({}, 'left') },
     { key = 'j', mod = {}, func = rapidKey({}, 'down') },
     { key = 'k', mod = {}, func = rapidKey({}, 'up') },

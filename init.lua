@@ -14,8 +14,8 @@ do
     end
 end
 
-left_event_runner = require('modules.event_runner')
-right_event_runner = require('modules.event_runner')
+f13_event_runner = require('modules.event_runner')
+f17_event_runner = require('modules.event_runner')
 
 hs.window.animationDuration = 0
 
@@ -127,7 +127,7 @@ function rapidKey(modifiers, key)
     end
 end
 
-local left_event_map = {
+local f13_event_map = {
     -- hammerspoon 관리
     { key = 'r', mod = {'shift'}, func = hs.reload },
     -- app_toggle
@@ -145,7 +145,7 @@ local left_event_map = {
     { key = '.', mod = {}, func = tabMove('right') },
 }
 
-local right_event_map = {
+local f17_event_map = {
     -- app_toggle
     { key = ',', mod = {}, func = app_toggle('System Preferences'), msg = 'System Preferences' },
     { key = '/', mod = {}, func = app_toggle('Activity Monitor') },
@@ -195,8 +195,8 @@ local right_event_map = {
 }
 
 do
-    left_event_runner:init('f13', left_event_map)
-    right_event_runner:init('f17', right_event_map)
+    f13_event_runner:init('f13', f13_event_map)
+    f17_event_runner:init('f17', f17_event_map)
 end
 
 -- spoon plugins

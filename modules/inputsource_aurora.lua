@@ -1,18 +1,24 @@
 local boxes = {}
-local inputEnglish = "com.apple.keylayout.ABC"
+local englishInputs = {
+    ["com.apple.keylayout.ABC"] = true,
+    ["org.youknowone.inputmethod.Gureum.system"] = true
+}
 local box_height = 23
 local box_alpha = 0.35
 local GREEN = hs.drawing.color.osx_green
 local screenCount = #hs.screen.allScreens()
 
 function show_autohide()
+    -- hs.alert.show('autohide')
     disable_show()
-    if hs.keycodes.currentSourceID() ~= inputEnglish then
+    if not englishInputs[hs.keycodes.currentSourceID()] then
         enable_show()
     end
 end
 
-function handleScreenEvent()
+hs.timer.doEvery(5, show_autohide)
+
+function handleScreenEvent(event_type)
     -- hs.alert.show('모니터 수 변경')
     show_autohide()
     -- local screens = hs.screen.allScreens()
@@ -71,7 +77,8 @@ end
 
 -- 입력소스 변경 이벤트에 이벤트 리스너를 달아준다
 hs.keycodes.inputSourceChanged(show_autohide)
+
 -- 스크린 변경 이벤트에 이벤트 리스너를 달아준다
-hs.screen.watcher.new(handleScreenEvent):start()
-hs.screen.watcher.newWithActiveScreen(handleScreenEvent):start()
+-- hs.screen.watcher.new(handleScreenEvent):start()
+-- hs.screen.watcher.newWithActiveScreen(handleScreenEvent):start()
 

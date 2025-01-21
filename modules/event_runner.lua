@@ -1,7 +1,6 @@
 local obj = {}
 
 local event_runner_icon = hs.menubar.new()
-local inputEnglish = "com.apple.keylayout.ABC"
 
 local function_table = {}
 
@@ -33,9 +32,9 @@ function obj:init(key, func_table)
 
         if FLAG.finally_esc then
             local input_source = hs.keycodes.currentSourceID()
-            if not (input_source == inputEnglish) then
+            if not (input_source == INPUT_ENGLISH) then
                 hs.eventtap.keyStroke({}, 'right')
-                hs.keycodes.currentSourceID(inputEnglish)
+                hs.keycodes.currentSourceID(INPUT_ENGLISH)
             end
             hs.alert.show('escape', 0.5)
             hs.eventtap.keyStroke({}, 'escape')

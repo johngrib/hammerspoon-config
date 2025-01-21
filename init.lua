@@ -1,7 +1,25 @@
 -- hammerspoon config
 
-local inputEnglish = "com.apple.keylayout.ABC"
-local inputKorean = "org.youknowone.inputmethod.Gureum.han2"
+ENGLISH_INPUTS = {
+    ["com.apple.keylayout.ABC"] = true,
+    ["org.youknowone.inputmethod.Gureum.system"] = true
+}
+KOREAN_INPUTS = {
+    ["org.youknowone.inputmethod.Gureum.han2"] = true,
+    ["com.apple.inputmethod.Korean.2SetKorean"] = true
+}
+
+function getAvailableInput(inputs)
+    for inputName, _ in pairs(inputs) do
+        if hs.keycodes.currentSourceID(inputName) then
+            return inputName
+        end
+    end
+end
+
+INPUT_ENGLISH = getAvailableInput(ENGLISH_INPUTS)
+INPUT_KOREAN = getAvailableInput(KOREAN_INPUTS)
+
 
 local win_move = require('modules.winmove')
 local app_man = require('modules.appman')
@@ -37,6 +55,7 @@ function app_toggle(name, secondName)
         FLAG.finally_esc = false
         local activated = hs.application.frontmostApplication()
         local path = string.lower(activated:path())
+        -- hs.alert.show(path)
 
         if string.match(path, string.lower(name) .. '%.app$') then
             activated:hide()
@@ -155,7 +174,7 @@ local f17_event_map = {
     { key = 'e', mod = {}, func = app_toggle('Finder') },
     { key = 'f', mod = {}, func = app_toggle('Firefox') },
     { key = 'g', mod = {}, func = app_toggle('DataGrip', 'DBeaver') },
-    { key = 'i', mod = {}, func = app_toggle('IntelliJ IDEA', 'IntelliJ IDEA CE') },
+    { key = 'i', mod = {}, func = app_toggle('IntelliJ IDEA Community Edition', 'IntelliJ IDEA') },
     { key = 'k', mod = {}, func = app_toggle('KakaoTalk') },
     { key = 'l', mod = {}, func = app_toggle('DeepL') },
     { key = 'm', mod = {}, func = app_toggle('Microsoft Edge') },
@@ -168,9 +187,9 @@ local f17_event_map = {
     { key = 'v', mod = {}, func = app_toggle('VimR') },
     -- { key = 'v', mod = {'shift'}, func = app_toggle('Visual Studio Code') },
     -- { key = 'x', mod = {}, func = app_toggle('Microsoft Excel') },
-    { key = 'space', mod = {}, func = app_toggle('iTerm') },
+    -- { key = 'space', mod = {}, func = app_toggle('iTerm') },
     { key = 'space', mod = {'shift'}, func = app_toggle('Terminal') },
-    -- { key = 'space', mod = {}, func = app_toggle('Alacritty') },
+    { key = 'space', mod = {}, func = app_toggle('Alacritty') },
     -- { key = 'space', mod = {'shift'}, func = app_toggle('WezTerm') },
     { key = 'tab', mod = {}, func = hs.hints.windowHints },
     { key = 'tab', mod = {'shift'}, func = hs.window._timed_allWindows },

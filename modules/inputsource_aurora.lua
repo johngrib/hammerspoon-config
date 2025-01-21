@@ -1,8 +1,5 @@
 local boxes = {}
-local englishInputs = {
-    ["com.apple.keylayout.ABC"] = true,
-    ["org.youknowone.inputmethod.Gureum.system"] = true
-}
+
 local box_height = 23
 local box_alpha = 0.35
 local GREEN = hs.drawing.color.osx_green
@@ -11,7 +8,7 @@ local screenCount = #hs.screen.allScreens()
 function show_autohide()
     -- hs.alert.show('autohide')
     disable_show()
-    if not englishInputs[hs.keycodes.currentSourceID()] then
+    if not ENGLISH_INPUTS[hs.keycodes.currentSourceID()] then
         enable_show()
     end
 end

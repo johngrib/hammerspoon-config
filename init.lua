@@ -248,5 +248,23 @@ function dump(o)
    end
 end
 
+-- Automatically switch to English input source for specific apps
+local appsToForceEnglish = require('modules.english_apps')
+
+local function applicationWatcher(appName, eventType, appObject)
+    if (eventType == hs.application.watcher.activated) then
+        for _, app in ipairs(appsToForceEnglish) do
+            -- hs.alert.show(appName .. ' ' .. app)
+            if (appName == app) then
+                hs.keycodes.currentSourceID(INPUT_ENGLISH)
+                break
+            end
+        end
+    end
+end
+
+local appWatcher = hs.application.watcher.new(applicationWatcher)
+appWatcher:start()
+
 hs.alert.show('loaded')
 

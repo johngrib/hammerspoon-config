@@ -233,6 +233,7 @@ end
 
 require('modules.Caffeine'):init(spoon)
 require('modules.inputsource_aurora')
+require('modules.english_apps')
 require('modules.touch')
 
 function dump(o)
@@ -247,18 +248,6 @@ function dump(o)
       return tostring(o)
    end
 end
-
--- Automatically switch to English input source for specific apps
-local appsToForceEnglish = require('modules.english_apps')
-
-local function applicationWatcher(appName, eventType, appObject)
-    if eventType == hs.application.watcher.activated and appsToForceEnglish[appName] then
-        hs.keycodes.currentSourceID(INPUT_ENGLISH)
-    end
-end
-
-local appWatcher = hs.application.watcher.new(applicationWatcher)
-appWatcher:start()
 
 hs.alert.show('loaded')
 

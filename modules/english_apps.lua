@@ -1,11 +1,11 @@
 return {
-    "iTerm2",
-    "Terminal",
-    "WezTerm",
-    "Alacritty",
-    "VimR",
-    "Code",
-    "IntelliJ IDEA",
-    "DataGrip",
-    "PhpStorm"
+    ["iTerm2"] = true,
+    ["Terminal"] = true,
+    ["WezTerm"] = true,
+    ["Alacritty"] = true,
+    ["VimR"] = true,
+    ["Code"] = true,
+    ["IntelliJ IDEA"] = true,
+    ["DataGrip"] = true,
+    ["PhpStorm"] = true
 }

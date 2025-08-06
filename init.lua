@@ -252,14 +252,8 @@ end
 local appsToForceEnglish = require('modules.english_apps')
 
 local function applicationWatcher(appName, eventType, appObject)
-    if (eventType == hs.application.watcher.activated) then
-        for _, app in ipairs(appsToForceEnglish) do
-            -- hs.alert.show(appName .. ' ' .. app)
-            if (appName == app) then
-                hs.keycodes.currentSourceID(INPUT_ENGLISH)
-                break
-            end
-        end
+    if eventType == hs.application.watcher.activated and appsToForceEnglish[appName] then
+        hs.keycodes.currentSourceID(INPUT_ENGLISH)
     end
 end
 

@@ -243,6 +243,7 @@ require('modules.Caffeine'):init(spoon)
 require('modules.inputsource_aurora')
 require('modules.english_apps')
 require('modules.touch')
+require('modules.fn_key_mode')
 
 -- chrome 브라우저 전용 설정
 require('modules.app_chrome')

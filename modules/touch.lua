@@ -49,6 +49,22 @@ local function touch_w()
     end
 end
 
+local function touch_a()
+    local edgeTable = {}
+    edgeTable['Google Chrome'] = { x = 30, y = 60, click = false }
+    edgeTable['_else_'] = { x = -30, y = 30, click = false }
+
+    local activeAppName = hs.application.frontmostApplication():name()
+    local edgeMove = edgeTable[activeAppName] or edgeTable['_else_']
+
+    local screen = hs.window.focusedWindow():frame()
+    hs.mouse.absolutePosition({ x = screen.x + edgeMove['x'], y = screen.y + screen.h / 2 })
+
+    if edgeMove['click'] then
+        hs.eventtap.leftClick(hs.mouse.getAbsolutePosition())
+    end
+end
+
 local function touch_s()
     local screen = hs.window.focusedWindow():frame()
     hs.mouse.absolutePosition(hs.geometry.rectMidPoint(screen))
@@ -128,6 +144,7 @@ mouseWatcher:start()
 touchMode:bind("", "q", touch_q)
 touchMode:bind("", "w", touch_w)
 touchMode:bind("", "e", touch_e)
+touchMode:bind("", "a", touch_a)
 touchMode:bind("", "s", touch_s)
 touchMode:bind("", "c", touch_c)
 touchMode:bind("", "z", touch_z)

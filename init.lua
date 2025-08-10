@@ -34,6 +34,7 @@ end
 
 f13_event_runner = require('modules.event_runner')
 f17_event_runner = require('modules.event_runner')
+f18_event_runner = require('modules.event_runner')
 
 hs.window.animationDuration = 0
 
@@ -218,6 +219,13 @@ do
     f17_event_runner:init('f17', f17_event_map)
 end
 
+local f18_event_map = {
+    { key = 's', mod = {}, func = win_move.prev_screen },
+}
+do
+    f18_event_runner:init('f18', f18_event_map)
+end
+
 -- spoon plugins
 hs.loadSpoon("SpoonInstall")
 spoon.SpoonInstall.use_syncinstall = false
@@ -236,6 +244,9 @@ require('modules.inputsource_aurora')
 require('modules.english_apps')
 require('modules.touch')
 
+-- chrome 브라우저 전용 설정
+require('modules.app_chrome')
+
 function dump(o)
    if type(o) == 'table' then
       local s = '{ '
@@ -250,4 +261,5 @@ function dump(o)
 end
 
 hs.alert.show('loaded')
+
 

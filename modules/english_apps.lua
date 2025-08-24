@@ -12,6 +12,7 @@ local appsToForceEnglish = {
 }
 
 local function applicationWatcher(appName, eventType, appObject)
+    -- hs.alert.show(appName)
     if eventType == hs.application.watcher.activated and appsToForceEnglish[appName] then
         hs.keycodes.currentSourceID(INPUT_ENGLISH)
     end

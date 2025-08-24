@@ -263,4 +263,15 @@ end
 
 hs.alert.show('loaded')
 
+local escWatcher = hs.eventtap.new({hs.eventtap.event.types.keyDown}, function(event)
+    -- 모든 키 코드 확인하는 방법: hs.inspect(hs.keycodes.map)
+    -- print("KeyCode:", event:getKeyCode(), "Key:", hs.keycodes.map[event:getKeyCode()])
+    -- ESC 키 코드: 53
+    if event:getKeyCode() == 53 then
+        hs.keycodes.currentSourceID(INPUT_ENGLISH)
+        hs.alert.show('escape', 0.5)
+    end
+    return false -- 이벤트를 계속 전달 (ESC 동작은 유지됨)
+end)
 
+escWatcher:start()

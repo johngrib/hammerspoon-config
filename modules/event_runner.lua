@@ -31,11 +31,11 @@ function obj:init(key, func_table)
         event_runner_icon:setTitle('')
 
         if FLAG.finally_esc then
-            -- local input_source = hs.keycodes.currentSourceID()
-            -- if not (input_source == INPUT_ENGLISH) then
-            --     hs.eventtap.keyStroke({}, 'right')
-            --     hs.keycodes.currentSourceID(INPUT_ENGLISH)
-            -- end
+            local input_source = hs.keycodes.currentSourceID()
+            hs.keycodes.currentSourceID(INPUT_ENGLISH)
+            if not (input_source == INPUT_ENGLISH) then
+                hs.eventtap.keyStroke({}, 'right')
+            end
             hs.alert.show('escape', 0.5)
             hs.eventtap.keyStroke({}, 'escape')
         end

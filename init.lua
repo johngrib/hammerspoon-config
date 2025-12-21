@@ -94,6 +94,10 @@ tabTable['Terminal'] = {
     left = { mod = {'control', 'shift'}, key = 'tab' },
     right = { mod = {'control'}, key = 'tab' }
 }
+tabTable['Ghostty'] = {
+    left = { mod = {'control', 'shift'}, key = 'tab' },
+    right = { mod = {'control'}, key = 'tab' }
+}
 tabTable['iTerm2'] = {
     left = { mod = {'shift', 'command'}, key = '[' },
     right = { mod = {'shift', 'command'}, key = ']' }

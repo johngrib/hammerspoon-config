@@ -280,3 +280,14 @@ local escWatcher = hs.eventtap.new({hs.eventtap.event.types.keyDown}, function(e
 end)
 
 escWatcher:start()
+
+-- hs.loadSpoon("LeftRightHotkey")
+-- spoon.LeftRightHotkey:start()
+-- for i, v in pairs(f17_event_map) do
+--     local t1 = {'rOpt'}
+--     table.move(v['mod'], 1, #v['mod'], #t1+1, t1)
+--     -- hs.hotkey.bind(t1, v['key'], v['func'])
+--     spoon.LeftRightHotkey:bind(t1, v['key'], v['func'])
+--     -- spoon.LeftRightHotkey:bind({'rOpt'}, 'c', app_toggle('Google Chrome'))
+-- end
+--

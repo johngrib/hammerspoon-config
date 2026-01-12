@@ -151,6 +151,17 @@ function rapidKey(modifiers, key)
     end
 end
 
+local function saveImageFromPasteboard()
+    local saveDir = os.getenv("HOME") .. "/Downloads"
+    local img = hs.pasteboard.readImage()
+    if img then
+        local filename = os.date("screenshot-%Y%m%d-%H%M%S.png")
+        local filepath = saveDir .. "/" .. filename
+        img:saveToFile(filepath)
+        os.execute("open " .. filepath)
+    end
+end
+
 local f13_event_map = {
     -- hammerspoon 관리
     { key = 'r', mod = {'shift'}, func = hs.reload },
@@ -186,6 +197,7 @@ local f17_event_map = {
     { key = 'n', mod = {}, func = app_toggle('Notes') },
     -- { key = 'o', mod = {}, func = app_toggle('Microsoft OneNote') },
     { key = 'p', mod = {}, func = app_toggle('Preview') },
+    { key = 'q', mod = {}, func = saveImageFromPasteboard },
     { key = 'r', mod = {}, func = app_toggle('Reminders') },
     { key = 's', mod = {}, func = app_toggle('Slack') },
     -- { key = 't', mod = {}, func = app_toggle('Telegram') },
@@ -290,4 +302,3 @@ escWatcher:start()
 --     spoon.LeftRightHotkey:bind(t1, v['key'], v['func'])
 --     -- spoon.LeftRightHotkey:bind({'rOpt'}, 'c', app_toggle('Google Chrome'))
 -- end
---

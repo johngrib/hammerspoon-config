@@ -152,7 +152,7 @@ function rapidKey(modifiers, key)
 end
 
 local function saveImageFromPasteboard()
-    local saveDir = os.getenv("HOME") .. "/Downloads"
+    local saveDir = os.getenv("HOME") .. "/Desktop"
     local img = hs.pasteboard.readImage()
     if img then
         local filename = os.date("screenshot-%Y%m%d-%H%M%S.png")
@@ -195,7 +195,7 @@ local f17_event_map = {
     { key = 'l', mod = {}, func = app_toggle('DeepL') },
     { key = 'm', mod = {}, func = app_toggle('Microsoft Edge') },
     { key = 'n', mod = {}, func = app_toggle('Notes') },
-    -- { key = 'o', mod = {}, func = app_toggle('Microsoft OneNote') },
+    { key = 'o', mod = {}, func = app_toggle('Obsidian') },
     { key = 'p', mod = {}, func = app_toggle('Preview') },
     { key = 'q', mod = {}, func = saveImageFromPasteboard },
     { key = 'r', mod = {}, func = app_toggle('Reminders') },

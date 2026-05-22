@@ -8,7 +8,7 @@ function obj:init(spoon)
     })
 
     spoon.Caffeine:start()
-    spoon.Caffeine:setState(true)
+    spoon.Caffeine:setState(false)
 end
 
 return obj
